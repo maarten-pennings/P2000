@@ -14,51 +14,51 @@ Trying a 10-print program works as expected. Still I had some issues.
   
   In the _mix_ mode, this is the behavior of shift and capslock.
   
-  | key  | no shift, no capslock | shift, no capslock || no shift, capslock | shift, capslock |
-  |:----:|:---------------------:|:------------------:||:------------------:|:---------------:|
-  | [A]  |          a            |         A          ||         A          |         A       |
-  | [1!] |          1            |         !          ||         !          |         !       |
+  | key  | no shift, no capslock | shift, no capslock | no shift, capslock | shift, capslock |
+  |:----:|:---------------------:|:------------------:|:------------------:|:---------------:|
+  | [A]  |          a            |         A          |         A          |         A       |
+  | [1!] |          1            |         !          |         !          |         !       |
 
   In the _allcaps_ mode, this is the behavior of shift and capslock.
   
-  | key  | no shift, no capslock | shift, no capslock || no shift, capslock | shift, capslock |
-  |:----:|:---------------------:|:------------------:||:------------------:|:---------------:|
-  | [A]  |          A            |         A          ||         A          |         A       |
-  | [1!] |          1            |         !          ||         !          |         !       |
+  | key  | no shift, no capslock | shift, no capslock | no shift, capslock | shift, capslock |
+  |:----:|:---------------------:|:------------------:|:------------------:|:---------------:|
+  | [A]  |          A            |         A          |         A          |         A       |
+  | [1!] |          1            |         !          |         !          |         !       |
   
-  The engage capslock press the Capslock key, to disengage capslock press the Shift key.
+  To engage capslock press the Capslock key, to disengage capslock press the Shift key.
   To _toggle_ the character mode press Shift and Tab.
   
-  ![Keys](images\capslock.jpg)
+  ![Keys](images/capslock.jpg)
   
   BASIC itself is not case sensitive, so `print` and `PRINT` are the same, and so
   are `a$` and `A$`. What is more, BASIC converts these to uppercase when you type 
   the lowercase.
   
   However, as I discovered, some programs ask `Are you sure [y/n]?` and 
-  they do not accept `Y`.
+  they do not accept (uppercase) `Y`.
   
-  Also, I have a BASIC 1.1 NL, which starts in mix mode, but the BASIC 1.0 UK 
-  starts in allcaps mode.
+  BASIC 1.1 NL starts in mix mode, but the BASIC 1.0 UK starts in allcaps mode.
 
-- To edit a basic program, say line 30, you can not just type `LIST`, cursor 
-  to line 30 and start correcting. You have to give the command `EDIT 30`, 
-  and then you are in a sort of VI editor (if you did a bit of Linux).
+- To edit a basic program, say line 30, you can not just type `LIST`, cursor to 
+  line 30 and start correcting. You have to give the command `EDIT 30`, and then 
+  you are in a sort of [VI editor](https://en.wikipedia.org/wiki/Vi_(text_editor)) 
+  (that only helps if you did a bit of Linux).
   This editor has three states: command, insert, overwrite.
   
   By default, you are in the command state where pressing a key gives a command.
   - `C` ("change") switches to overwrite state; each character typed next 
     overwrites the old text. `CODE` switches back to command state.
-  - `I` ("insert") switches insert state; each character typed next is inserted before 
-    the old text. . `CODE` switches back to command state.
+  - `I` ("insert") switches to insert state; each character typed next is inserted before 
+    the old text. `CODE` switches back to command state.
   - `X` ("append") moves to end of line and switches to insert.
   - `H` deletes to end of line and switches to insert.
-  - `S` ("search") moves the cursor to the next character typed. Uses Shift `Right arrow` for find next.
-  - `K` deletes to the next character typed.
+  - `S` ("search") moves the cursor to the next character typed. Use Shift `Cursor right` for find next.
+  - `K` ("kill search") deletes to the next character typed.
   - `ENTER` commits changes.
   - `STOP` (Shift `,` on numeric keypad) aborts all changes.
-  - `Backspace` backspaces and Shift backspace deletes one character.
-  - Tip: also the line number can be changed (the old line stays as is).
+  - `Backspace` backspaces one character and Shift `Backspace` deletes one character.
+  - Tip: also the _line number_ can be edited (then, the old line stays as is).
   
   In all modes, the cursor keys are operational.
   
@@ -78,7 +78,7 @@ Trying a 10-print program works as expected. Still I had some issues.
 
   ![printerport](images/printerport.jpg)
   
-  The great thing is that this is just a serial port.
+  The great thing is that this is actually a _serial_ port.
   To connect it to a PC, you need an old style D25 connector/converter, and 
   a cable to convert from Serial to USB. I used a 
   [US232R-500-BULK](https://nl.mouser.com/ProductDetail/FTDI/US232R-500-BULK).
@@ -91,7 +91,7 @@ Trying a 10-print program works as expected. Still I had some issues.
   
   Here an example on an empty screen.
   I first did a `list`, then a `run` (which prints due to the
-  `LPRINT` statements), the a `llist` (which prints the listing), and finaly 
+  `LPRINT` statements), then a `llist` (which prints the listing), and finally 
   I pressed print screen.
   
   ![Terminal](images/terminal.png)
@@ -106,14 +106,15 @@ Trying a 10-print program works as expected. Still I had some issues.
   Later I found out the manual is for version NL 1.1, and my cartridge is UK 1.0.
   
   Differences I found
-  - 1.1 adds many control chars. For example see that 18 is not working in 1.0
+  - Version 1.1 adds many control chars. For example see that control 
+    character 18 is not working in 1.0.
   
     ![control chars](images/controlchars.jpg)
     
   - Several keyboard keys are not working: cursor (!), print screen (numeric Shift 5), 
     clear screen (numeric Shift upper right), Def for edit last (numeric  Shift 0).
     
-    I did have a "Tekstbewerking" or "P2301" (for slot "1") cartridge, and their 
+    I did have a "Tekstbewerking" or "P2301" (for slot "1") cartridge, and there 
     the cursor keys did work, so I did know it was not a hardware fault.
     
   - Tape directory (Zoek numeric Shift 1) only shows first char of file name, 
