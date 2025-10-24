@@ -8,7 +8,96 @@ First getting to understand BASIC, later the BASIC cartridge.
 ## BASIC
 
 I started with the cartridge "Basic Interpreter 16K" or "P2305" (for slot "1").
-Trying a 10-print program works as expected. Still I had some issues.
+Trying a "10-print" program works as expected. Still I had some issues.
+
+
+### Editing
+
+To edit a basic program, say line 30, you can not just type `LIST`, 
+cursor to line 30 and start correcting (as I do on the C64). You have 
+to give the command `EDIT 30`, and then you are in a sort of 
+[VI editor](https://en.wikipedia.org/wiki/Vi_(text_editor)) 
+(that only helps if you did a bit of Linux).
+This editor has three states: command, insert, overwrite.
+
+By default, you are in the _command_ state where pressing a key gives a command:
+- `I` ("insert") switches to _insert_ state; each character typed next is 
+  inserted before the old text. `CODE` switches back to the _command_ state.
+- `C` ("change") switches to _overwrite_ state; each character typed next 
+  overwrites the old text. `CODE` switches back to the _command_ state.
+- `X` ("append") moves to end of line and switches to the _insert_ state.
+- `H` ("del eoln") deletes to end of line and switches to the _insert_ state.
+- `S` ("search") moves the cursor to the next character typed. 
+  Use Shift `Cursor right` for find next.
+- `K` ("kill search") deletes to the next character typed.
+- `ENTER` commits changes.
+- `N` ("next") commits changes and edits next line.
+- `STOP` (Shift `,` on numeric keypad) aborts all changes.
+- `Backspace` _backspaces_ one character left of the cursor, and Shift `Backspace` 
+  deletes one character under the cursor.
+- Tip: also the _line number_ can be edited (then, the old line stays as is).
+
+In all modes, the cursor keys are operational.
+
+Tip: `LIST .` and `EDIT .` list respectively edit the last listed or edited line.
+Numeric Shift 0 (`Def`) is a shorthand for `EDIT .`.
+
+Tip: Numeric Shift 9 (`M`) toggles paged listing; when `LIST` has filled one
+screen, a `meer` (more) is shown.
+
+This overview is for BASIC 1.1; BASIC 1.0 UK is severely limited: e.g. 
+the cursor keys don't work and and `C` is for one character only.
+
+
+### Tape
+
+The tape recorder works as a disk drive. It is formatted in blocks of 1k byte.
+One side of the tape has 42 blocks.
+
+You can get a directory with Zoek (Shift `1` on numeric keyboard), 
+and load and save is with commands `CLOAD` and `CSAVE` to tape blocks.
+
+![dir](images/dir.jpg)
+
+The directory listing only shows the first character of every file in 
+BASIC 1.0 UK, the screenshot is for BASIC 1.1 NL.
+
+The `BAS` indicates the file type (BASIC program). Another example is `SNG`
+which indicates an array of singles was saved to the tape. The `B` behind 
+the file type indicates this file requires th BASIC cartridge.
+Command for savinf singles array `A` is something like `CSAVE* A @ "filename"`.
+
+The key Shift 7 on the numeric keypad `[oo]` formats a tape.
+
+
+### Serial port
+
+The P2000T has a printer port at the back. 
+
+![printerport](images/printerport.jpg)
+
+The great thing is that this is actually a _serial_ port.
+To connect it to a PC, you need an old style D25 connector/converter, and 
+a cable to convert from Serial to USB. I used a 
+[US232R-500-BULK](https://nl.mouser.com/ProductDetail/FTDI/US232R-500-BULK).
+
+In the PC start a terminal, e.g. [ninjaterm](https://ninjaterm-app.mbedded.ninja/), 
+connect to the correct COM port with settings 1200,8,N,1, and 
+try `LPRINT` to print a line, `LLIST` to list the program on the printer,
+or use print-screen (Shift `00` on numeric keyboard) to copy the current 
+screen to the printer.
+
+Here an example on an empty screen.
+I first did a `list`, then a `run` (which prints due to the
+`LPRINT` statements), then a `llist` (which prints the listing), and finally 
+I pressed print screen.
+
+![Terminal](images/terminal.png)
+
+The print screen button does not seem to work in BASIC 1.0 UK.
+
+> The `LLIST` and print screen are low threshold features to get 
+> data from P2000T to PC.
 
 
 ### Character modes
@@ -45,74 +134,54 @@ they do not accept (uppercase) `Y`.
 BASIC 1.1 NL starts in mix mode, but the BASIC 1.0 UK starts in allcaps mode.
 
 
-### Editing
+### Special characters
 
-To edit a basic program, say line 30, you can not just type `LIST`, cursor to 
-line 30 and start correcting. You have to give the command `EDIT 30`, and then 
-you are in a sort of [VI editor](https://en.wikipedia.org/wiki/Vi_(text_editor)) 
-(that only helps if you did a bit of Linux).
-This editor has three states: command, insert, overwrite.
+P2000 BASIC has several special characters. But there is no comprehensive list.
+This is copied from the Dutch [Gebruiksaanwijzing](docs/Gebruiksaanwijzing-P2000T-met-P2305-BASIC-NL.pdf).
 
-By default, you are in the command state where pressing a key gives a command.
-- `C` ("change") switches to overwrite state; each character typed next 
-  overwrites the old text. `CODE` switches back to command state.
-- `I` ("insert") switches to insert state; each character typed next is inserted before 
-  the old text. `CODE` switches back to command state.
-- `X` ("append") moves to end of line and switches to insert.
-- `H` deletes to end of line and switches to insert.
-- `S` ("search") moves the cursor to the next character typed. Use Shift `Cursor right` for find next.
-- `K` ("kill search") deletes to the next character typed.
-- `ENTER` commits changes.
-- `STOP` (Shift `,` on numeric keypad) aborts all changes.
-- `Backspace` backspaces one character and Shift `Backspace` deletes one character.
-- Tip: also the _line number_ can be edited (then, the old line stays as is).
-
-In all modes, the cursor keys are operational.
-
-This overview is for BASIC 1.1; BASIC 1.0 UK is severely limited: e.g. 
-the cursor keys don't work and and `C` is for one character only.
-
-
-### tape
-
-The tape recorder works as a disk drive. You can get a directory with Zoek
-(Shift `1` on numeric keyboard), and load and save is with commands `CLOAD` 
-and `CSAVE` to tape blocks.
-
-![dir](images/dir.jpg)
-
-The directory listing only shows the first character of every file in 
-BASIC 1.0 UK, the screenshot is for BASIC 1.1 NL.
-
-
-### Serial port
-
-The P2000T has a printer port at the back. 
-
-![printerport](images/printerport.jpg)
-
-The great thing is that this is actually a _serial_ port.
-To connect it to a PC, you need an old style D25 connector/converter, and 
-a cable to convert from Serial to USB. I used a 
-[US232R-500-BULK](https://nl.mouser.com/ProductDetail/FTDI/US232R-500-BULK).
-
-In the PC start a terminal, e.g. [ninjaterm](https://ninjaterm-app.mbedded.ninja/), 
-connect to the correct COM port with settings 1200,8,N,1, and 
-try `LPRINT` to print a line, `LLIST` to list the program on the printer,
-or use print-screen (Shift `00` on numeric keyboard) to copy the current 
-screen to the printer.
-
-Here an example on an empty screen.
-I first did a `list`, then a `run` (which prints due to the
-`LPRINT` statements), then a `llist` (which prints the listing), and finally 
-I pressed print screen.
-
-![Terminal](images/terminal.png)
-
-The print screen button does not seem to work in BASIC 1.0 UK.
-
-> The `LLIST` and print screen are low threshold features to get 
-> data from P2000T to PC.
+ |CHRS()|  description                                                         |
+ |-----:|:---------------------------------------------------------------------| 
+ |   0  |  einde toonstring                                                    |
+ |   1  |  cursor aan                                                          | 
+ |   2  |  cursor uit                                                          |
+ |   3  |  zet linker helft van beeldgeheugen op scherm (OUT 48,0) en CHR$(29) |
+ |   4  |  positioneer cursor. Te volgen door CHR$(regel)CHR$(kolom)           |
+ |   5  |  scherm naar printer                                                 |
+ |   6  |  definieer plaats cursor als nieuw cursor punt                       |
+ |   7  |  korte piep                                                          |
+ |   8  |  cursor naar links met overloop op vorige regel                      |
+ |   9  |  horizontale TAB                                                     |
+ |  10  |  cursor omlaag of scherm opvoer                                      |
+ |  11  |  wis karakter links van cursor                                       |
+ |  12  |  wis venster, zet cursor en cursorpunt links boven in venster        |
+ |  13  |  cursor naar linker kantlijn venster                                 |
+ |  14  |  zet deel-PRINT aan                                                  |
+ |  15  |  wis van plaats cursor tot cursorpunt                                |
+ |  16  |  cursor 1 stap naar links (tot randen van het venster)               |
+ |  17  |  cursor 1 stap omhoog (tot randen van het venster)                   |
+ |  18  |  cursor 1 stap omlaag (tot randen van het venster)                   |
+ |  19  |  cursor 1 stap naar rechts (tot randen van het venster)              |
+ |  20  |  zet cursor op kolom k. Te volgen door CHR$(k)                       |
+ |  21  |  wis tot einde schermregel                                           |
+ |  22  |  wis tot einde venster                                               |
+ |  23  |  toonstring, CHR$(23)CHR$(T)CHR$(N1)CHR$(N2)...CHR$(0)               |
+ |      |  T lengte toon (in 4T ms), frequentie 34.7/N kHz                     |
+ |  24  |  cursor 1 stap naar rechts met overloop                              |
+ |  28  |  zet venster op 24 regels, 40 kolommen en wis venster                |
+ |  29  |  als cursor niet links in het venster staat dan CHR$(13) + CHR$(10)  |
+ |  30  |  zet deel-PRINT uit                                                  |
+ |  31  |  zet cursor op cursorpunt                                            |
+ | 129  |  rood                                                                |
+ | 130  |  groen                                                               |
+ | 131  |  geel                                                                |
+ | 132  |  blauw                                                               |
+ | 133  |  magenta (paars)                                                     |
+ | 134  |  cyaan (lichtblauw)                                                  |
+ | 135  |  wit                                                                 |
+ | 136  |  laat de rest van de regel knipperen                                 |
+ | 137  |  schakelt knipperen weer uit                                         |
+ | 140  |  schakelt op lettertekens van normale hoogte                         |
+ | 141  |  schakelt op lettertekens van dubbele hoogte                         |
 
 
 ### BASIC versions  
@@ -128,7 +197,7 @@ Differences I found
   ![control chars](images/controlchars.jpg)
   
 - Several keyboard keys are not working: cursor (!), print screen (numeric Shift 5), 
-  clear screen (numeric Shift upper right), Def for edit last (numeric  Shift 0).
+  clear screen (numeric Shift upper right), Def for edit last (numeric Shift 0).
   
   I did have a "Tekstbewerking" or "P2301" (for slot "1") cartridge, and there 
   the cursor keys did work, so I did know it was not a hardware fault.
@@ -138,13 +207,55 @@ Differences I found
   
 - Statement `inp("")` to get a single keyboard key does not work in 1.0.
 
-- Default character  mode is allcaps in 1.0. I did not know I could switch 
+- Default character mode is allcaps in 1.0. I did not know I could switch 
   to mixed (see above), but my program required that.
 
 
+### P2000 BASIC features
+
+How do I grade the P2000 BASIC? My reference is Commodore 64 (C64) BASIC.
+
+- Having to use `EDIT` instead of screen editing is a bummer.
+
+- Good to have support for hex with (`&h9000`) and `HEX$()`. 
+  Who needs `OCT$()`, and where is `BIN$()`?
+
+- I'm missing `DEEK()` and `DOKE()` for two-byte addresses.
+
+- Nice there is a way to get the address of a variable with `VARPTR(var)`.
+
+- `DEF FN` is much more useful than in e.g. C64, since the function can have 
+  multiple arguments and the return type can be string.
+  
+- Unlike C64 BASIC where all computations are done in single precision, 
+  P2000 BASIC has several data types: single, double, int, string.
+
+- `CLEAR 50,&H9000` allows reserving some RAM from BASIC to 
+  e.g. a machine language routine.
+
+- Support for up to 10 machine language routines, and the ability so set and 
+  address for them: `DEF USR5=&H9001`. Calling is via `USR5(23)`.
+
+- Misses file `OPEN` and file `READ#` and `WRITE#`. `CLOAD*` and `CSAVE*` 
+  load and save entire arrays. Nicely high level, but maybe too inflexible.
+
+- Triggering an error with `ERROR <num>`, even using fresh numbers is nice.
+  Also good to have `ON ERROR GOTO`, `ERL` (line) and `ERR` (error code).
+  
+- Some string functions are nice, `INSTR(pos,str1,str2)`, some are ok,
+  `STRING(num,char)`. For me `SPACE$(num)` is overkill.
+  
+- Printer support (`LPRINT`) is nice, but since this is actually a serial port,
+  why is there no `LINPUT`.
+  
+- I'm not sure what to think about `PRINT USING`. Very verbose. Not flexible 
+  enough. can only be used with `PRINT` - why not in a string expression?
+  
+
 ## Cartridge
 
-Since I have BASIC UK 1.0, I borrowed the better NL 1.1 and started to investigate.
+Since I have BASIC UK 1.0, I borrowed the better NL 1.1 and started to 
+investigate. The dream is to make my own cartridge.
 
 
 ### Memory map
@@ -301,7 +412,7 @@ to the printer (using `LPRINT`).
 ```
 
 I connected my P2000T with a serial to USB cable to my PC, and recorded the 
-printing. Here is the first couple of lines
+log. Here is the first couple of lines of the log.
 
 ```text
 1000  5E FB 0F 00 80 52 6F 62  ^....Rob
@@ -320,12 +431,15 @@ printing. Here is the first couple of lines
 1068  C9 00 00 C9 00 00 C3 63  .......c
 ```
 
-You find the complete result in the repo [basic1.1.log](cartridgedump/basic1.1.log).
+You find the complete log in the repo [basic1.1.log](cartridgedump/basic1.1.log).
 You will find some empty lines, my assumption is that the P2000 
-adds 6 empty lines every 66 lines, to skip the performation of the 
-continuous paper of the 1980's printers.
+adds 6 empty lines every 66 lines, to skip the perforation of the 
+continuous paper of the 1980s' printers.
+Later I found on page 49 [Gebruiksaanwijzing](docs/Gebruiksaanwijzing-P2000T-met-P2305-BASIC-NL.pdf) 
+that this assumption is indeed true, but that the constants (66 lines per page, 
+6 lines skip are actually settable in Monitor RAM via a poke.
 
-Finally, I write a [python script](cartridgedump) to convert that dump to pure binary.
+Finally, I wrote a [python script](cartridgedump) to convert that log to pure binary.
 
 ```python
 inname= "basic1.1.log"
@@ -346,13 +460,49 @@ with open(outname, 'wb') as file:
 ```
 
 The resulting binary is also in the repo [basic1.1.bin](cartridgedump/basic1.1.bin).
-I downloaded a [binary](https://github.com/p2000t/software/blob/main/cartridges/BASICNL1.1.bin) 
+It size is 16384 bytes, which is exactly 16k. Good.
+I downloaded the binary [BASICNL1.1](https://github.com/p2000t/software/blob/main/cartridges/BASICNL1.1.bin) 
 from the P2000 preservation project , and they are identical.
 My ripper works.
 
 
+### Addressing
+
+Observe that the 16k (E)(E)(P)ROM in the cartridge is mapped from 0x1000 to 
+0x4FFF. This poses an addressing problem. If the Z80 puts 0x1000 on the bus,
+and there is no special logic, the cartridge ROM will see that address on its
+A0-A13 pins. This means that the first 4k of the ROM is wasted: when an address
+in the range 0x000-0x0FFF is generated by the Z80, the chip select of the ROM 
+is in state not-selected. When the address is in the range 0x1000 to 0x4FFF,
+the chip select is in state selected.
+
+Wasting 4k is not nice. We could fold the last 4k block to the bottom of the 
+ROM, having this content: 4000-4FFF, 1000-1FFF, 2000-2FFF, 3000-3FFF. No waste 
+but messy to flash the PROM. We could add an adder, which subtracts 4K of the address 
+bus. Lots of chips.
+
+I was very confused by this, but the Simple Cartridge from Ivo Filot explains 
+how this is done.
+
+The problem at hand is that we need to compute the address lines A10C and A11C
+for the cartridge from the bus lines A10 and A11 (and signal lines CARS1 and 
+CARS2). Answer: A10C is not(A10) and A11C is the cartridge select signal 
+CARS2 as the orange column below shows.
+
+![Cartridge address mapping](images/cartridgeaddresmap.png)
+
+We still need a cartridge select signal CARS, that is simply the OR of CARS1 
+and CARS2. And there is this thing that the CARS1 and CARS2 (and CARS) are 
+actually low active, so we need some NOTs  and an AND instead of an OR, just
+as Ivo shows in his "Address line decoding" section of his 
+[schematics](https://philips-p2000t.nl/cartridges/simple-cartridge.html#simple-cartridge).
+
+
+
+
 ## Links
 
+- [Philips P2000T by Ivo Filot](https://philips-p2000t.nl/).
 - [Preservation project](https://github.com/p2000t), especially 
   - [Nieuwsbrief Natlab](https://github.com/p2000t/documentation/tree/main/NatLab)
   - [Software](https://github.com/p2000t/software)
