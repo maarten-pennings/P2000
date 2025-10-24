@@ -498,6 +498,64 @@ as Ivo shows in his "Address line decoding" section of his
 [schematics](https://philips-p2000t.nl/cartridges/simple-cartridge.html#simple-cartridge).
 
 
+## Rescue a BASIC program
+
+I found a tape with a BASIC program that won me a P2000 in 1983.
+I wanted to archive that. 
+
+### LLIST 
+
+
+### Dump
+
+I wrote a basic program that dumps a BASIC program in memory has a hex file.
+It assumes the same layout of a BASIC line: `<ptr-to-next-line> <line-num> <token> <token> ... <nul>`.
+I first had to hunt 0x6000 and furher to find the start of BASIC. 
+Later I found on page 52 [Gebruiksaanwijzing](docs/Gebruiksaanwijzing-P2000T-met-P2305-BASIC-NL.pdf):
+
+> Het BASIC programma begint normaal op &H6547. Vanaf dit adres staat een ketting van programma regels in het geheugen.
+
+
+```basic
+10 PRINT "ABCDE";
+20 GOTO 10
+9000 CLEAR99:A=&H6547:Z$="00000":S$=" "
+9003 DEF FND(A)=PEEK(A)+256*PEEK(A+1)
+9005 DEF FNH2$(X)=RIGHT$(Z$+HEX$(X),2)
+9007 DEF FNH4$(X)=RIGHT$(Z$+HEX$(X),4)
+9020 N=FND(A):LPRINTFNH4$(A)S$FNH4$(N);
+9027 IFN=0THEN LPRINT:END
+9028 LPRINT STR$(FND(A+2));
+9030 H$="":FOR I=A TO N-1:D=PEEK(I)
+9032 LPRINT S$FNH2$(D);
+9034 IF D<32 OR D>127 THEN D=46
+9036 H$=H$+CHR$(D)
+9040 NEXT:LPRINTS$"("H$")":A=N:GOTO9020
+```
+
+A `run 9000` dumps itself over serial port. I captured that in a file, and 
+I cheated a bit: I removed several line endings manually. 
+Note, all numbers are hex except the third in each line, that is the BASIC 
+line number in decimal.
+
+
+```text
+6547 6556 10 56 65 0A 00 A5 20 22 41 42 43 44 45 22 3B 00 (Ve... "ABCDE";.)
+6556 655F 20 5F 65 14 00 88 20 31 30 00 (_e... 10.)
+655F 6582 9000 82 65 28 23 AB 39 39 3A 41 CA 26 48 36 35 34 37 3A 5A 24 CA 22 30 30 30 30 30 22 3A 53 24 CA 22 20 22 00 (.e(#.99:A.&H6547:Z$."00000":S$." ".)
+6582 659E 9003 9E 65 2B 23 A3 20 B1 44 28 41 29 CA DB 28 41 29 BD 32 35 36 BF DB 28 41 BD 31 29 00 (.e+#. .D(A)..(A).256..(A.1).)
+659E 65B9 9005 B9 65 2D 23 A3 20 B1 48 32 24 28 58 29 CA E9 28 5A 24 BD E2 28 58 29 2C 32 29 00 (.e-#. .H2$(X)..(Z$..(X),2).)
+65B9 65D4 9007 D4 65 2F 23 A3 20 B1 48 34 24 28 58 29 CA E9 28 5A 24 BD E2 28 58 29 2C 34 29 00 (.e/#. .H4$(X)..(Z$..(X),4).)
+65D4 65F3 9020 F3 65 3C 23 4E CA B1 44 28 41 29 3A A2 B1 48 34 24 28 41 29 53 24 B1 48 34 24 28 4E 29 3B 00 (.e<#N..D(A):..H4$(A)S$.H4$(N);.)
+65F3 6601 9027 01 66 43 23 8A 4E CA 30 BA 20 A2 3A 80 00 (.fC#.N.0. .:..)
+6601 6613 9028 13 66 44 23 A2 20 E3 28 B1 44 28 41 BD 32 29 29 3B 00 (.fD#. .(.D(A.2));.)
+6613 6630 9030 30 66 46 23 48 24 CA 22 22 3A 81 20 49 CA 41 20 B0 20 4E BE 31 3A 44 CA DB 28 49 29 00 (0fF#H$."":. I.A . N.1:D..(I).)
+6630 6641 9032 41 66 48 23 A2 20 53 24 B1 48 32 24 28 44 29 3B 00 (AfH#. S$.H2$(D);.)
+6641 665B 9034 5B 66 4A 23 8A 20 44 CB 33 32 20 C3 20 44 C9 31 32 37 20 BA 20 44 CA 34 36 00 ([fJ#. D.32 . D.127 . D.46.)
+665B 666A 9036 6A 66 4C 23 48 24 CA 48 24 BD E6 28 44 29 00 (jfL#H$.H$..(D).)
+666A 6686 9040 86 66 50 23 82 3A A2 53 24 22 28 22 48 24 22 29 22 3A 41 CA 4E 3A 88 39 30 32 30 00 (.fP#.:.S$"("H$")":A.N:.9020.)
+6686 0000
+```
 
 
 ## Links
