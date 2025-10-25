@@ -626,14 +626,20 @@ as Ivo shows in his "Address line decoding" section of his
 
 ## Archive GRAFIEK
 
-I found a tape with a BASIC program that won me a P2000 in 1983.
-I wanted to archive that program
+I found a tape with a BASIC program `GRAFIEK` that won me and my friend Marcel 
+a P2000 back in 1983. We were supposed to study our finals, but we were 
+programming in the contest halls, because we didn't own a computer.
+
+![Tape with GRAFIEK](images/grafiek-tape.jpg)
+
+I set myself as goal to archive that program.
 
 
 ### Screenshots
 
 The program is written in BASIC and is just 5k bytes in size.
-It is called `Grafiek` on the tape and `Functie onderzoek` on screen.
+It is called `GRAFIEK` on the tape and `FUNCTIE ONDERZOEK` on screen.
+In English that would be something like `GRAPH` and `FUNCTION ANALYSIS`.
 
 ![Tape directory](images/grafiek-dir.jpg)
 
@@ -677,9 +683,12 @@ This results in [llist log](grafiek/grafiek.llist.2.log).
 
 ### Dump trial
 
-I wrote a basic program that dumps a BASIC program in memory has a hex file.
-It assumes the same layout of a BASIC line: `<ptr-to-next-line> <line-num> <token> <token> ... <nul>`.
-I first had to hunt 0x6000 and furher to find the start of BASIC. 
+I thought it might also be a good idea to have a hex-dump of the program 
+instead of just the BASIC program text produced by `LLIST`.
+
+I wrote a basic program that dumps a BASIC program in memory has in hex.
+It assumes this layout of a BASIC line: `<ptr-to-next-line> <line-num> <token> <token> ... <nul>`.
+I had to hunt 0x6000 and further to find the start of BASIC. 
 Later I found on page 52 [Gebruiksaanwijzing](docs/Gebruiksaanwijzing-P2000T-met-P2305-BASIC-NL.pdf):
 
 > Het BASIC programma begint normaal op &H6547. Vanaf dit adres staat een ketting van programma regels in het geheugen.
@@ -729,10 +738,10 @@ line number in decimal.
 ```
 
 
-### Dump Grafiek
+### Dump GRAFIEK
 
-I added the dump lines (9000-9040) to Grafiek so that it can dump itself.
-This time I cancelled the 6 lines perforation skipping by issueing a 
+I added the dump lines (9000-9040) to GRAFIEK so that it can dump itself.
+This time I canceled the 6 lines perforation skipping by issuing a 
 `POKE &H60A9,0`. I `RUN 9000` and captured the [log](grafiek/grafiek.dump.1.log).
 Once again I removed all line breaks for BASIC lines exceeding 80 characters,
 resulting in [dump log](grafiek/grafiek.dump.2.log).
@@ -742,6 +751,8 @@ the dump log and not in the llist log.
 
 
 ### 40 year later analysis
+
+Do I understand my 40 year old program?
 
 These comments refer to the [llist source](grafiek/grafiek.llist.2.log).
 
@@ -843,7 +854,12 @@ These comments refer to the [llist source](grafiek/grafiek.llist.2.log).
     if not it jumps to ??? 215 or 315, or 50 or 410, ... chaos.
   - Line 50 tells the user there is an error in the function definition.
 
-  
+I am surprised about the level of detail I knew this machine.
+All the poke addresses, the character codes, `INP`and `OUT` features.
+I never owned a P2000. There was no internet to look up those features.
+Would the contest hall have had User Manuals for us?
+
+
 ## Photo gallery
 
 
