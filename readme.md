@@ -4,7 +4,36 @@ I got a Philips P2000T, and started to investigate it a bit.
 This document describes my findings.
 First getting to understand BASIC, later the BASIC cartridge.
 
+I also tried to archieve a P2000 program I wrote 40 years ago.
 
+## Contents
+
+- [BASIC](#basic)
+  - [Editing](#editing)
+  - [Tape](#tape)
+  - [Serial Port](#serial-port)
+  - [Character modes](#character-modes)
+  - [Special characters](#special-characters)
+  - [BASIC versions](#basic-versions)
+  - [P2000 BASIC features](#p2000-basic-features)
+  
+- [Cartridge](#cartridge)
+  - [Memory map](#memory-map)
+  - [Cartridge internals](#cartridge-internals)
+  - [Cartridge header](#cartridge-header)
+  - [Cartridge dump](#cartridge-dump)
+  - [Addressing](addressing)
+  
+- [Archive GRAFIEK](#archive-grafiek)
+  - [Screenshots](#screenshots)
+  - [LLIST](#llist)
+  - [Dump trial](#dump-trial)
+  - [Dump Grafiek](#dump-grafiek)
+
+- [Photo gallery](#photo-gallery)
+
+- [Links](#links)
+  
 ## BASIC
 
 I started with the cartridge "Basic Interpreter 16K" or "P2305" (for slot "1").
@@ -526,15 +555,58 @@ as Ivo shows in his "Address line decoding" section of his
 [schematics](https://philips-p2000t.nl/cartridges/simple-cartridge.html#simple-cartridge).
 
 
-## Rescue a BASIC program
+## Archive GRAFIEK
 
 I found a tape with a BASIC program that won me a P2000 in 1983.
-I wanted to archive that. 
+I wanted to archive that program
+
+
+### Screenshots
+
+The program is written in BASIC and is just 5k bytes in size.
+It is called `Grafiek` on the tape and `Functie onderzoek` on screen.
+
+![Tape directory](images/grafiek-dir.jpg)
+
+It allows to enter a formula; here I just entered `SIN(X)`.
+
+![Main menu](images/grafiek-menu.jpg)
+
+Then comes a tricky step: the program modifies itself; it 
+pokes the formula on line 10.
+
+![Self modifying code](images/grafiek-selfmod.jpg)
+
+Once the formula is entered, and x/y limits, the program will plot
+the graph using teletext block graphics.
+
+![Graph plot](images/grafiek-plot.jpg)
+
+It can also approximate the roots of the graph
+
+![Roots](images/grafiek-roots.jpg)
+
+and even plot tangents (here for x=5).
+
+![Tangent](images/grafiek-tangent.jpg)
+ 
+The feature that I liked best is that the program allowed one to zoom-in on 
+the graph by drawing a box of interest.
+
 
 ### LLIST 
 
+The easiest way to transfer it to PC is the `LLIST`.
+Once again, I connected my P2000T with a serial to USB cable to my PC, and 
+recorded the [log](grafiek/grafiek.llist.1.log). I did a slight hand editing:
 
-### Dump
+- removing the 6 empty lines every 66 lines
+- remove line breaks for BASIC lines exceeding 80 characters
+
+This results in [llist log](grafiek/grafiek.llist.2.log).
+
+
+### Dump trial
 
 I wrote a basic program that dumps a BASIC program in memory has a hex file.
 It assumes the same layout of a BASIC line: `<ptr-to-next-line> <line-num> <token> <token> ... <nul>`.
@@ -586,6 +658,22 @@ line number in decimal.
 666A 6686 9040 86 66 50 23 82 3A A2 53 24 22 28 22 48 24 22 29 22 3A 41 CA 4E 3A 88 39 30 32 30 00 (.fP#.:.S$"("H$")":A.N:.9020.)
 6686 0000
 ```
+
+
+### Dump Grafiek
+
+I added the dump lines (9000-9040) to Grafiek so that it can dump itself.
+This time I cancelled the 6 lines perforation skipping by issueing a 
+`POKE &H60A9,0`. I `RUN 9000` and captured the [log](grafiek/grafiek.dump.1.log).
+Once again I removed all line breaks for BASIC lines exceeding 80 characters,
+resulting in [dump log](grafiek/grafiek.dump.2.log).
+
+Since this dump log is made by adding lines 9000-9040, you will find them in 
+the dump log and not in the llist log.
+
+
+
+## Photo gallery
 
 
 ## Links
