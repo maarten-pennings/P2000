@@ -102,7 +102,7 @@ The print screen button does not seem to work in BASIC 1.0 UK.
 
 ### Character modes
 
-The cartridge has two character _modes_, lets call them mix and allcaps.
+The cartridge has two character _modes_, lets call them mix and all-caps.
 This mode is not to be confused with the capslock state. 
 
 In the _mix_ mode, this is the behavior of shift and capslock.
@@ -112,7 +112,7 @@ In the _mix_ mode, this is the behavior of shift and capslock.
 | [A]  |        **a**          |         A          |         A          |         A       |
 | [1!] |          1            |         !          |         !          |         !       |
 
-In the _allcaps_ mode, this is the behavior of shift and capslock.
+In the _all-caps_ mode, this is the behavior of shift and capslock.
 
 | key  | no shift, no capslock | shift, no capslock | no shift, capslock | shift, capslock |
 |:----:|:---------------------:|:------------------:|:------------------:|:---------------:|
@@ -131,7 +131,7 @@ the lowercase (in program text).
 However, as I discovered, some programs ask `Are you sure [y/n]?` and 
 they do not accept (uppercase) `Y`.
 
-BASIC 1.1 NL starts in mix mode, but the BASIC 1.0 UK starts in allcaps mode.
+BASIC 1.1 NL starts in mix mode, but the BASIC 1.0 UK starts in all-caps mode.
 
 
 ### Special characters
@@ -207,7 +207,7 @@ Differences I found
   
 - Statement `inp("")` to get a single keyboard key does not work in 1.0.
 
-- Default character mode is allcaps in 1.0. I did not know I could switch 
+- Default character mode is all-caps in 1.0. I did not know I could switch 
   to mixed (see above), but my program required that.
 
 
@@ -299,7 +299,27 @@ page 4/14.
 
 ![Cartridge header](images/cartridgeheader.png)
 
-I wrote this program to check the cartridge header of BASIC NL 1.1.
+I wrote a quick checker on BASIC UK 1.0.
+
+```BASIC
+10 FOR I= &H1000 to I+15
+20 PRINT HEX$(PEEK(I));" ";
+30 NEXT 
+RUN 
+5E 0 0 0 0 20 20 20 20 20 20 20 20 1 0 0
+```
+
+That is a boring result: valid signature (5E) count and initial checksum 
+zero (0 0 0 0), cartridge name 8 spaces (20..20), and revision 1.
+
+Running the same in BASIC NL 1.1, gives more interesting results:
+
+```BASIC
+5E FB F 0 80 52 6F 62 52 6F 62 38 33 2 0 0 
+```
+
+I wrote the following program to print the cartridge header of BASIC NL 1.1 and 
+to validate the checksum.
 
 ```basic 
 110 DEFFNH2$(X)=RIGHT$("0"+HEX$(X),2)
@@ -344,7 +364,8 @@ This was the output
   I'm surprised that the initial value is such a neat number (8000).
 - At 1005 we find the cartridge name `RobRob83`. It is never (?) shown to the user.
   This seems to be the authors' signature.
-- Apparently revision 2.
+- Apparently revision 2 (UK 1.0 has revision 1).
+- Finally zeros for the reserved last two bytes.
 
 My BASIC program computes the checksum as Ivo 
 [explains](https://philips-p2000t.nl/cartridges/simple-cartridge.html#cartridge-validation) it ,
@@ -390,6 +411,13 @@ no_add_carry:
     dec bc                      ;dec bytes done 
     jr rom_test_loop
 ```
+
+Since I was surprised about the "neat" number for the initial checksum field,
+I downloaded another cartridge image and computed the checksum.
+This time in Python, see [checksum](checksum).
+
+This `CPM Nater` cartridge is also 16k, also does not check its full content 
+(here 8k of 16k instead of 4k of 16k), but the checksum matches.
 
 
 ### Cartridge dump
@@ -514,6 +542,8 @@ I first had to hunt 0x6000 and furher to find the start of BASIC.
 Later I found on page 52 [Gebruiksaanwijzing](docs/Gebruiksaanwijzing-P2000T-met-P2305-BASIC-NL.pdf):
 
 > Het BASIC programma begint normaal op &H6547. Vanaf dit adres staat een ketting van programma regels in het geheugen.
+
+Or, "The BASIC program by default starts at &H6547. From that address there is a linked list of program lines."
 
 
 ```basic
