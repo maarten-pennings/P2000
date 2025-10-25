@@ -24,16 +24,18 @@ I also tried to archieve a P2000 program I wrote 40 years ago.
   - [Cartridge dump](#cartridge-dump)
   - [Addressing](addressing)
   
-- [Archive GRAFIEK](#archive-grafiek)
+- [Archive GRAFIEK](#archive-grafiek)
   - [Screenshots](#screenshots)
   - [LLIST](#llist)
   - [Dump trial](#dump-trial)
   - [Dump Grafiek](#dump-grafiek)
-
+  - [40 year later analysis](#40-year-later-analysis)
+  
 - [Photo gallery](#photo-gallery)
 
 - [Links](#links)
-  
+
+
 ## BASIC
 
 I started with the cartridge "Basic Interpreter 16K" or "P2305" (for slot "1").
@@ -162,6 +164,9 @@ they do not accept (uppercase) `Y`.
 
 BASIC 1.1 NL starts in mix mode, but the BASIC 1.0 UK starts in all-caps mode.
 
+Later I found out the `POKE &H60B6,0` selects all-caps and `POKE &H60B6,1`
+selects mix mode.
+
 
 ### Special characters
 
@@ -211,6 +216,70 @@ This is copied from the Dutch [Gebruiksaanwijzing](docs/Gebruiksaanwijzing-P2000
  | 137  |  schakelt knipperen weer uit                                         |
  | 140  |  schakelt op lettertekens van normale hoogte                         |
  | 141  |  schakelt op lettertekens van dubbele hoogte                         |
+
+But, funny things happen. For example with ASCII code 35. Recall 12 is clear 
+screen, ensuring all next prints happen at &H5000.
+
+```BASIC
+PRINT CHR$(12);CHR$(34);CHR$(35);CHR$(36);: FOR I=&H500 TO I+2: PRINT PEEK(I); :NEXT 
+"#$ 34 95 36
+```
+
+Also funny, ASCI code 126.
+
+```BASIC
+PRINT CHR$(12);CHR$(125);CHR$(126);CHR$(127);: FOR I=&H500 TO I+2: PRINT PEEK(I); :NEXT 
+¾¼■ 125 92 127
+```
+
+The Dutch [Gebruiksaanwijzing](docs/Gebruiksaanwijzing-P2000T-met-P2305-BASIC-NL.pdf) 
+page 146 claims this has to do with ASCII compatibility. OK ... I guess.
+
+What about this sequence? 
+
+```BASIC
+PRINT CHR$(12);CHR$(131);CHR$(65);CHR$(66);CHR$(67);: FOR I=&H500 TO I+3: PRINT PEEK(I); :NEXT 
+ABC 3  65  66  67
+```
+
+And all text is in yellow, but with code 3, not 131.
+I found this [teletext table](https://www.wiels.nl/teletext/).
+
+ | poke| name| long name              | description                                                                               |
+ |----:|:---:|:-----------------------|:------------------------------------------------------------------------------------------|
+ |  0  | ABK | ALPHA BLACK            | alphanumeric set (dus niet 1 van de 2 mosaic sets), kleur zwart.                          |
+ |  1  | ANR | ALPHA RED              | alphanumeric set, kleur rood.                                                             |
+ |  2  | ANG | ALPHA GREEN            | alphanumeric set, kleur groen.                                                            |
+ |  3  | ANY | ALPHA YELLOW           | alphanumeric set, kleur geel.                                                             |
+ |  4  | ANB | ALPHA BLUE             | alphanumeric set, kleur blauw.                                                            |
+ |  5  | ANM | ALPHA MAGENTA          | alphanumeric set, kleur magenta.                                                          |
+ |  6  | ANC | ALPHA CYAN             | alphanumeric set, kleur cyaan.                                                            |
+ |  7  | ANW | ALPHA WHITE            | alphanumeric set, kleur wit.                                                              |
+ |  8  | FSH | FLASH                  | knipperend.                                                                               |
+ |  9  | STD | STEADY                 | niet knipperend.                                                                          |
+ | 10  | SBX | START BOX              | wordt niet gebruikt bij teletekst.                                                        |
+ | 11  | EBX | END BOX                | wordt niet gebruikt bij teletekst.                                                        |
+ | 12  | NSZ | NORMAL SIZE            | hoogte van de letter = 1 regel.                                                           |
+ | 13  | DBH | DOUBLE HEIGHT          | hoogte van de letter = 2 regels. (zie opmerkingen)                                        |
+ | 14  | DBW | DOUBLE WIDTH           | 2 x normale breedte, wordt niet gebruikt bij teletekst.                                   |
+ | 15  | DBS | DOUBLE SIZE            | 2 x normale breedte en hoogte, wordt niet gebruikt bij teletekst.                         |
+ | 16  | MBK | MOSAIC BLACK           | mosaic set (1 van de twee, zie 025 en 026), kleur zwart.                                  |
+ | 17  | MSR | MOSAIC RED             | mosaic set, kleur rood.                                                                   |
+ | 18  | MSG | MOSAIC GREEN           | mosaic set, kleur groen.                                                                  |
+ | 19  | MSY | MOSAIC YELLOW          | mosaic set, kleur geel.                                                                   |
+ | 20  | MSB | MOSAIC BLUE            | mosaic set, kleur blauw.                                                                  |
+ | 21  | MSM | MOSAIC MAGENTA         | mosaic set, kleur magenta.                                                                |
+ | 22  | MSC | MOSAIC CYAN            | mosaic set, kleur cyaan.                                                                  |
+ | 23  | MSW | MOSAIC WHITE           | mosaic set, kleur wit.                                                                    |
+ | 24  | CDY | CONCEAL DISPLAY        | verborgen text, opgeheven wanneer andere kleur wordt gekozen.                             |
+ | 25  | SPL | STOP LINING            | bij mosaic continuous set gebruiken.                                                      |
+ | 26  | STL | START LINING           | bij mosaic seperated set gebruiken.                                                       |
+ | 27  | CSI | CONTROL SEQUENCE INTRO | wordt niet gebruikt bij teletekst.                                                        |
+ | 28  | BBD | BLACK BACKGROUND       | achtergrondkleur van de characters zwart.                                                 |
+ | 29  | NBD | NEW BACKGROUND         | achtergrondkleur wordt de kleur van de characters.                                        |
+ | 30  | HMS | HOLD MOSAIC            | bij mosaic set de laatst gebruikte character weergeven als er een control character staat.|
+ | 31  | RMS | RELEASE MOSAIC         | bij mosaic set een spatie weergeven als er een control character staat (default).         |
+
 
 
 ### BASIC versions  
@@ -672,7 +741,108 @@ Since this dump log is made by adding lines 9000-9040, you will find them in
 the dump log and not in the llist log.
 
 
+### 40 year later analysis
 
+These comments refer to the [llist source](grafiek/grafiek.llist.2.log).
+
+- Line 290-406 plots the graph
+  - Line 290 itself erases both screens, and ensures the first char of the left screen is "MOSAIC YELLOW"
+  - Lines 300 and 310 compute the x and y scale from domain and range ("domein" and "bereik" in Dutch, hence the `D` and `B`. "onder" and "boven" for low and high, hence "O" and "B").
+    `SX` and `SY` are scale in pixels, `AX` and `AY` is scale in screen cells. Note that one screen 
+    cell is 2×3 pixels.
+  - Error trapping is switched on (function might take the square root of a negative number) in line 315.
+  - Line 320 starts the plotting by looping `X` of the range. `D` is pixel density, with default `1.1` set in line 2.
+    The `OUT48,39` ensures we see the right part of the screen (memory frame buffer is 80×25, we see now the last 40 columns).
+  - Lines 330 and 340 compute the `Y` by substituting `X` in function, and then computing the pixel coordinates `XP` and `YP`.
+  - There is another error: when plotting, the top line of the screen shows `-`, `.`, or `+` for each column,
+    indicating if the function value is below the screen (`-`), on the screen (`.`) or above the screen (`+`).
+    Variable `C` has the ASCII value of that tag (43=`+`, 45=`-`, 46=`.`).
+    The assignment to `C` on line 330 should be 46 (`.`) and the `C=46` on line 340 
+    should be `C=43` and after the `THEN` just as on line 350.
+  - If out or range (`BO` and `BB`) lines 340 and 350 skip plotting and jump to 395. 
+    Looks like another error, should have probably jumped to 398, because `P` and `Q` on 395 are not initialized.
+  - Lines 370-392 compute which cell to update (`P`), with what mask (`N`), and what the new code is (`Q`).
+  - Line 395 pokes the new code and checks for a key press (&H6000 is keyboard buffer).
+  - Line 398 prints the `-`, `.`, `+` tag in `C` at the top of the screen. This also functions as progress bar.
+  - Line 400 loops for next pixel.
+  - Line 405 beeps completion of plot.
+  - Line 406 waits for a key press.
+
+- Line 999-1020 perform error handling while plotting.
+  - Extra tags are introduced: 94 `^`, 63 `?`, 33 `!` for errors in lines 999, 1000, and 1010.
+  - There is some unclear error handling, but 1020 resumes plotting at 398, printing the tag `C`.
+
+- Line 410-998 is main menu with key handling.
+  - Starts on line 410 by switching back to left part of the screen.
+  - Line 440 prints the title (using `T$`).
+  - As a reminder the domain of the function `Df` and its range `Bf` is printed on line 445.
+  - Line 448 prints the function formula from `F$` in chunks `G$` of max 38 chars.
+  - Lines 453 and 455 determine if axis can be drawn given selected domain and range, by setting bits 0 and 1 in `AS`.
+  - Lines 458-520 print the main menu.
+  - Line 799 clears the keyboard buffer
+  - At line 800 the keyboard is scanned
+    This uses the keyboard buffer which holds key codes, not ASCII codes.
+    ![keybaord mapping](grafiek-keyboard.png)
+  - There is an error: line 940 jumps to a non-existing line 7000, but key 53 is intercepted at line 855.
+  - Lines 810-998 handle or dispatch the key.
+
+- Line 2000-2100 draws axis (depending on the flags in `AS`).
+
+- Line 3000-3110 allow the user to draw a zoom rectangle.
+  - Line 3000 manipulates the screen, and sets the coordinates of the zoom box to the entire screen.
+  - Line 3010 gives the user instructions to hit the cursor keys to control the zoom box, or SPC when ready.
+  - Line 3020: the zoom rectangle uses `INP("")` which does not get a key code, but an ASCII code.
+    Out of range key code loops on line 3020
+  - Line 3025 handles space by jumping to the zoomn activation in 3100 and 3110
+  - Line 3030 handles the cases 16 (cursor left), 17 (cursor up), 
+    18 (cursor down), 19 (cursor right), 32 (space = ready) by an `ON-GOTO`. 
+  - Lines 3050-385 are the routines the `ON-GOTO` jumps to.
+    They all jump back to key reading at 3020.
+  - Lines 3100 and 3110 activate the new zoom box by addapting `DO`/`DB` and `BO`/`BB`.
+    It does this by looking at `L` which is either "zoom in" 
+    or "zoom out" (Beperken L=29 or Vergroten L=31).
+    
+- Lines 5000-5070 draw a tangent line.
+
+- Lines 6000-6100 compute roots.
+  
+- Line 60-160 is the self modifying code part.
+  - When you run this program after `CLOAD`, line 10 has an error-free function 
+    definition `DEF FNF(X)=SIN(X)`. Once the user has selected `F Functie wijzigen` 
+    the user has actually dynamically changed the program, and I believe `V1=` 
+    signals that case - not sure why.
+  - Line 60 instructs the user to enter a function.
+  - Line 70 lets the user input the function  (in `F$`), computes its length 
+    (in `LF`) and the _address in this program_ where the function should be 
+    poked (`N`). This means that there **can not be any change to the lines 
+    before line 10**.
+  - Line 80 is a look-up table, mapping functions to basic tokens 
+    (e.g. `ATN()` has token value 218).
+  - Line 90 loops over all characters in the entered function.
+  - Line 100 computes the ASCII value of the loop character, and if it 
+    is a digit (48 `0` .. 57 `9`), `X` (88), or parenthesis (40 `(`, 41 `)`)
+    the token to poke `B` is the same as the ASCII value `A`.
+  - Lines 102-107 translate operators to tokens (42 `*`, 43 `+`, 45 `-`, 47 `/`, 94 `^`).
+  - Line 115 skips lookup if a token `B` is found.
+  - Lines 120 and 130 do the lookup of a 3-letter string in the `DATA` table.
+  - Line 160 pokes the token `B` at `N`. When the complete string is done,
+    a colon `:` and `REM` (token 142) is poked to isolate the function definition.
+    String `F$` is prefixed with `f(x)`, and the definition is updated by 
+    jumping to line 10.
+
+- Line 210-260 lets the user enter domain and range limits.
+
+- The start of the program, lines 3-50, do some magic with flags 
+  (`V1`, `V2`, `V3`) and error handling that puzzles me.
+  - Line 3 set `T$` to the title of the program.
+  - Line 6 `POKE24758,0` or `POKE &H60B6,0` selects all-caps, and sets some constants.
+  - Line 10 defines the function to be plotted. Note there is `REM` with as many spaces as BASIC allows. This is important for the self modifying code.
+  - Now I get puzzled. Line 20 sets error trapping. I guess line 40 is a crude 
+    check if the function has errors. If so, it goes to 42 (trap), 
+    if not it jumps to ??? 215 or 315, or 50 or 410, ... chaos.
+  - Line 50 tells the user there is an error in the function definition.
+
+  
 ## Photo gallery
 
 
