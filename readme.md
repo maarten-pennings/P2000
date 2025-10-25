@@ -782,7 +782,7 @@ These comments refer to the [llist source](grafiek/grafiek.llist.2.log).
   - Line 799 clears the keyboard buffer
   - At line 800 the keyboard is scanned
     This uses the keyboard buffer which holds key codes, not ASCII codes.
-    ![keybaord mapping](grafiek-keyboard.png)
+    ![keybaord mapping](images/grafiek-keyboard.png)
   - There is an error: line 940 jumps to a non-existing line 7000, but key 53 is intercepted at line 855.
   - Lines 810-998 handle or dispatch the key.
 
@@ -814,7 +814,8 @@ These comments refer to the [llist source](grafiek/grafiek.llist.2.log).
   - Line 60 instructs the user to enter a function.
   - Line 70 lets the user input the function  (in `F$`), computes its length 
     (in `LF`) and the _address in this program_ where the function should be 
-    poked (`N`). This means that there **can not be any change to the lines 
+    poked (`N`).  
+    This means that **there can not be any change to the lines 
     before line 10**.
   - Line 80 is a look-up table, mapping functions to basic tokens 
     (e.g. `ATN()` has token value 218).
