@@ -761,7 +761,7 @@ line number in decimal.
 
 I added the dump lines (9000-9040) to GRAFIEK so that it can dump itself.
 It prints some extra markers to facilitate the merging of long lines: each 
-dumped line starts with `>>`, the BASIC line number is followed by `:`.
+dumped line starts with `>>`, the BASIC line number is followed by `:`, and the character string at the end of the line is enclosed in double parenthesis `((` and `))`.
 
 This time I canceled the 6 lines perforation skipping by issuing a 
 `POKE &H60A9,0`. Then I commanded `RUN 9000` and captured the 
