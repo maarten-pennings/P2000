@@ -22,7 +22,7 @@ I also tried to archieve a P2000 program I wrote 40 years ago.
   - [Cartridge internals](#cartridge-internals)
   - [Cartridge header](#cartridge-header)
   - [Cartridge dump](#cartridge-dump)
-  - [Addressing](addressing)
+  - [Addressing](#addressing)
   
 - [Archive GRAFIEK](#archive-grafiek)
   - [Screenshots](#screenshots)
@@ -861,6 +861,213 @@ Would the contest hall have had User Manuals for us?
 
 
 ## Photo gallery
+
+### Main unit
+
+Main unit top side
+
+![Main unit top side](gallery/main-top.jpg)
+
+---------------------------------------
+
+Main unit right side
+
+![Main unit right side](gallery/main-right.jpg)
+
+---------------------------------------
+
+Main unit left side
+
+![Main unit left side](gallery/main-left.jpg)
+
+---------------------------------------
+
+Main unit back side
+
+![Main unit back side](gallery/main-back.jpg)
+
+---------------------------------------
+
+Main unit bottom side
+
+![Main unit bottom side](gallery/main-bottom.jpg)
+
+---------------------------------------
+
+Main unit bottom sticker 1
+
+![Main unit bottom sticker 1](gallery/main-sticker1.jpg)
+
+---------------------------------------
+
+Main unit bottom sticker 2
+
+![Main unit bottom sticker 2](gallery/main-sticker2.jpg)
+
+
+### Details
+
+Detail main keyboard
+
+![Detail main keyboard](gallery/detail-kbd-alpha.jpg)
+
+---------------------------------------
+
+Detail numeric keyboard
+
+![Detail numeric keyboard](gallery/detail-kbd-numeric.jpg)
+
+---------------------------------------
+
+Detail tape unit
+
+![Detail tape unit](gallery/detail-tape.jpg)
+
+---------------------------------------
+
+Detail tapes
+
+![Detail tapes](details-tapes.jpg)
+
+---------------------------------------
+
+Detail power button
+
+![Detail power button](gallery/detail-powerbut.jpg)
+
+---------------------------------------
+
+Detail slot 1
+
+![Detail slot 1](gallery/detail-slot1.jpg)
+
+---------------------------------------
+
+Detail mains connector
+
+![Detail mains connector](gallery/detail-mains.jpg)
+
+---------------------------------------
+
+Detail video and printer port
+
+![Detail video and printer port](gallery/detail-video-printer.jpg)
+
+
+### Cartridges
+
+Cartridges top view
+
+![Cartridge top view](gallery/cart-toplabels.jpg)
+
+---------------------------------------
+
+Cartridges side (label) view
+
+![Cartridges side (label) view](gallery/cart-sidelabels.jpg)
+
+---------------------------------------
+
+Cartridge BASIC UK 1.0 inside
+
+![Cartridge BASIC UK 1.0 inside](gallery/cart-basicuk1.0-inside.jpg)
+
+---------------------------------------
+
+Splash screen no cartridge
+
+![Splash screen no cartridge](gallery/cart-splash-nocart.jpg)
+
+---------------------------------------
+
+Splash screen BASIC UK 1.0 cartridge 
+
+![Cartridge Splash screen BASIC UK 1.0](gallery/cart-splash-basicUK1.0.jpg)
+
+---------------------------------------
+
+Splash screen BASIC NL 1.1 cartridge 
+
+![Cartridge Splash screen BASIC NL 1.1](gallery/cart-splash-basicNL1.1.jpg)
+
+---------------------------------------
+
+Splash screen tekstbewerking Cartridge 
+
+![Cartridge Splash screen tekstbewerking](gallery/cart-splash-tekstbewerking.jpg)
+
+
+### Inside
+
+Inside top cover
+
+![Inside cover](gallery/inside-cover.jpg)
+
+---------------------------------------
+
+Inside top view
+
+![Inside top view](gallery/inside-top.jpg)
+
+---------------------------------------
+
+Inside PCB north side (and daughter card)
+
+![Inside PCB north side](gallery/inside-pcb-north.jpg)
+
+---------------------------------------
+
+Inside PCB south side
+
+![Inside PCB south side](gallery/inside-pcb-south.jpg)
+
+---------------------------------------
+
+Inside PCB east side
+
+![Inside PCB east side](gallery/inside-pcb-east.jpg)
+
+---------------------------------------
+
+Inside PCB south east zoom
+
+![Inside PCB south east zoom](gallery/inside-pcb-southeast.jpg)
+
+---------------------------------------
+
+Inside PCB north east zoom
+
+![Inside PCB north east zoom](gallery/inside-pcb-northeast.jpg)
+
+---------------------------------------
+
+Inside PCB north zoom, daughter card removed
+
+![Inside PCB north daughter card](gallery/inside-pcb-north-daughter.jpg)
+
+---------------------------------------
+
+Inside PCB north zoom, back side daughter card
+
+![Inside PCB back side daughter card](gallery/inside-pcb-daughter-back.jpg)
+
+---------------------------------------
+
+Inside PCB north west zoom (daughter card removed)
+
+![Inside PCB north west zoom](gallery/inside-pcb-northwest.jpg)
+
+---------------------------------------
+
+Inside cable to keyboard
+
+![Inside cable to keyboard](gallery/inside-cable-kbd.jpg)
+
+---------------------------------------
+
+Inside cable to tape and power
+
+![Inside cable to tape and power](gallery/inside-cable-tapepow.jpg)
 
 
 ## Links
