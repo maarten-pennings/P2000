@@ -1,10 +1,14 @@
 # P2000T
 
-I got a Philips P2000T, and started to investigate it a bit.
+I retrieved a Philips P2000T from my attic, and started to investigate it.
 This document describes my findings.
-First getting to understand BASIC, later the BASIC cartridge.
 
-I also tried to archieve a P2000 program I wrote 40 years ago.
+First getting to understand BASIC, later detailing the BASIC cartridge.
+I also tried to archive a P2000 program I wrote 40 years ago.
+
+![P2000T](images/p2000t.jpg)
+
+Scroll down for an extensive [photo gallery](#photo-gallery).
 
 ## Contents
 
@@ -32,6 +36,8 @@ I also tried to archieve a P2000 program I wrote 40 years ago.
   - [40 year later analysis](#40-year-later-analysis)
   
 - [Photo gallery](#photo-gallery)
+
+- [Todo](#todo)
 
 - [Links](#links)
 
@@ -109,7 +115,7 @@ The P2000T has a printer port at the back.
 
 The great thing is that this is actually a _serial_ port.
 To connect it to a PC, you need an old style D25 connector/converter, and 
-a cable to convert from Serial to USB. I used a 
+a cable to convert from serial to USB. I used a 
 [US232R-500-BULK](https://nl.mouser.com/ProductDetail/FTDI/US232R-500-BULK).
 
 In the PC start a terminal, e.g. [ninjaterm](https://ninjaterm-app.mbedded.ninja/), 
@@ -537,7 +543,7 @@ to the printer (using `LPRINT`).
 190 NEXT A
 ```
 
-I connected my P2000T with a serial to USB cable to my PC, and recorded the 
+I connected my P2000T with a serial-to-USB cable to my PC, and recorded the 
 log. Here is the first couple of lines of the log.
 
 ```text
@@ -628,7 +634,8 @@ as Ivo shows in his "Address line decoding" section of his
 
 I found a tape with a BASIC program `GRAFIEK` that won me and my friend Marcel 
 a P2000 back in 1983. We were supposed to study our finals, but we were 
-programming in the contest halls, because we didn't own a computer.
+programming in the contest halls during a one-week event.
+Back then, neither of us owned a computer.
 
 ![Tape with GRAFIEK](images/grafiek-tape.jpg)
 
@@ -648,12 +655,13 @@ It allows to enter a formula; here I just entered `SIN(X)`.
 ![Main menu](images/grafiek-menu.jpg)
 
 Then comes a tricky step: the program modifies itself; it 
-pokes the formula on line 10.
+pokes the formula on line 10. 
 
 ![Self modifying code](images/grafiek-selfmod.jpg)
 
-Once the formula is entered, and x/y limits, the program will plot
-the graph using teletext block graphics.
+Of course, as a user we don't see that poking.
+Once the formula is entered, and x/y limits are entered, the program 
+will plot the function's graph using teletext block graphics.
 
 ![Graph plot](images/grafiek-plot.jpg)
 
@@ -665,18 +673,18 @@ and even plot tangents (here for x=5).
 
 ![Tangent](images/grafiek-tangent.jpg)
  
-The feature that I liked best is that the program allowed one to zoom-in on 
-the graph by drawing a box of interest.
+The feature that I liked best is that the program allowed one to zoom-in 
+on the graph (or out) by drawing a "box of interest".
 
 
 ### LLIST 
 
-The easiest way to transfer it to PC is the `LLIST`.
-Once again, I connected my P2000T with a serial to USB cable to my PC, and 
-recorded the [log](grafiek/grafiek.llist.1.log). I did a slight hand editing:
+The easiest way to transfer GRAFIEK to PC is by using the `LLIST` command.
+Once again, I connected my P2000T with a serial-to-USB cable to my PC, and 
+recorded the [log](grafiek/grafiek.llist.1.log). I did some light hand editing:
 
-- removing the 6 empty lines every 66 lines
-- remove line breaks for BASIC lines exceeding 80 characters
+- I removed the 6 empty lines that occur every 66 lines.
+- I removed line breaks for BASIC lines exceeding 80 characters.
 
 This results in [llist log](grafiek/grafiek.llist.2.log).
 
@@ -686,14 +694,16 @@ This results in [llist log](grafiek/grafiek.llist.2.log).
 I thought it might also be a good idea to have a hex-dump of the program 
 instead of just the BASIC program text produced by `LLIST`.
 
-I wrote a basic program that dumps a BASIC program in memory has in hex.
-It assumes this layout of a BASIC line: `<ptr-to-next-line> <line-num> <token> <token> ... <nul>`.
+I wrote a BASIC program that dumps (prints) a BASIC program in memory has in hex.
+It assumes the following layout of a BASIC line: `<ptr-to-next-line> <line-num> <token> <token> ... <nul>`.
 I had to hunt 0x6000 and further to find the start of BASIC. 
 Later I found on page 52 [Gebruiksaanwijzing](docs/Gebruiksaanwijzing-P2000T-met-P2305-BASIC-NL.pdf):
 
 > Het BASIC programma begint normaal op &H6547. Vanaf dit adres staat een ketting van programma regels in het geheugen.
 
 Or, "The BASIC program by default starts at &H6547. From that address there is a linked list of program lines."
+
+Here is my "BASIC dumper":
 
 
 ```basic
@@ -741,8 +751,12 @@ line number in decimal.
 ### Dump GRAFIEK
 
 I added the dump lines (9000-9040) to GRAFIEK so that it can dump itself.
+It prints some extra markers to facilitate the merging of long lines: each 
+dumped line starts with `>>`, the BASIC line number is followed by `:`.
+
 This time I canceled the 6 lines perforation skipping by issuing a 
-`POKE &H60A9,0`. I `RUN 9000` and captured the [log](grafiek/grafiek.dump.1.log).
+`POKE &H60A9,0`. Then I commanded `RUN 9000` and captured the 
+[log](grafiek/grafiek.dump.1.log).
 Once again I removed all line breaks for BASIC lines exceeding 80 characters,
 resulting in [dump log](grafiek/grafiek.dump.2.log).
 
@@ -1074,6 +1088,13 @@ Inside cable to keyboard
 Inside cable to tape and power
 
 ![Inside cable to tape and power](gallery/inside-cable-tapepow.jpg)
+
+
+## Todo
+
+- Try GRAFIEK in a P2000 emulator.
+- Create a SCART cable.
+- Make a cartridge with BASIC NL 1.1.
 
 
 ## Links
