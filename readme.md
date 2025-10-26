@@ -927,7 +927,7 @@ Detail tape unit
 
 Detail tapes
 
-![Detail tapes](details-tapes.jpg)
+![Detail tapes](gallery/detail-tapes.jpg)
 
 ---------------------------------------
 
@@ -974,6 +974,12 @@ Cartridge BASIC UK 1.0 inside
 
 ---------------------------------------
 
+Cartridge IC socket in BASIC UK 1.0
+
+![Cartridge IC socket in BASIC UK 1.0](gallery/cart-ic-socket.jpg)
+
+---------------------------------------
+
 Splash screen no cartridge
 
 ![Splash screen no cartridge](gallery/cart-splash-nocart.jpg)
@@ -992,7 +998,7 @@ Splash screen BASIC NL 1.1 cartridge
 
 ---------------------------------------
 
-Splash screen tekstbewerking Cartridge 
+Splash screen tekstbewerking cartridge 
 
 ![Cartridge Splash screen tekstbewerking](gallery/cart-splash-tekstbewerking.jpg)
 
