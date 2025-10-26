@@ -519,14 +519,13 @@ no_add_carry:
 Since I was surprised about the "neat" number for the initial checksum field,
 I downloaded another cartridge image and computed the checksum.
 This time in Python, see [checksum](checksum).
-
 This `CPM Nater` cartridge is also 16k, also does not check its full content 
 (here 8k of 16k instead of 4k of 16k), but the checksum matches.
 
 
 ### Cartridge dump
 
-Since My BASIC NL 1.1 is a borrowed cartridge, I decide to make a dump of it, 
+Since my BASIC NL 1.1 is a borrowed cartridge, I decide to make a dump of it, 
 to the printer (using `LPRINT`).
 
 ```basic 
@@ -610,16 +609,16 @@ the chip select is in state selected.
 
 Wasting 4k is not nice. We could fold the last 4k block to the bottom of the 
 ROM, having this content: 4000-4FFF, 1000-1FFF, 2000-2FFF, 3000-3FFF. No waste 
-but messy to flash the PROM. We could add an adder, which subtracts 4K of the address 
-bus. Lots of chips.
+but messy to flash the PROM. We could add adder circuitry, which subtracts 
+4K of the address bus. Lots of chips.
 
 I was very confused by this, but the Simple Cartridge from Ivo Filot explains 
-how this is done.
+how this is done in practice.
 
-The problem at hand is that we need to compute the address lines A10C and A11C
-for the cartridge from the bus lines A10 and A11 (and signal lines CARS1 and 
-CARS2). Answer: A10C is not(A10) and A11C is the cartridge select signal 
-CARS2 as the orange column below shows.
+The problem at hand is that we need to compute the address lines 
+_A10C_ and _A11C_ for the cartridge from the bus lines _A10_ and _A11_ 
+(and signal lines _CARS1_ and _CARS2_). Answer: _A10C_ is _not(A10)_ and 
+_A11C_ is the cartridge select signal _CARS2_. See the orange column below.
 
 ![Cartridge address mapping](images/cartridgeaddresmap.png)
 
@@ -631,6 +630,8 @@ as Ivo shows in his "Address line decoding" section of his
 
 
 ## Archive GRAFIEK
+
+This is a section with a rather personal goal. Feel free to skip.
 
 I found a tape with a BASIC program `GRAFIEK` that won me and my friend Marcel 
 a P2000 back in 1983. We were supposed to study our finals, but we were 
@@ -648,28 +649,36 @@ The program is written in BASIC and is just 5k bytes in size.
 It is called `GRAFIEK` on the tape and `FUNCTIE ONDERZOEK` on screen.
 In English that would be something like `GRAPH` and `FUNCTION ANALYSIS`.
 
+![Tape directory](images/grafiek-dir1.jpg)
+
+Is the tape getting old? I miss the `T` program which is on paper 
+but not in the dir. I decided to made a copy on another tape. 
+Funnily that "dir" looks different - but still better than the UK 1.0.
+
 ![Tape directory](images/grafiek-dir.jpg)
 
-It allows to enter a formula; here I just entered `SIN(X)`.
+GRAFIEK allows the user to enter a formula; here I just entered `SIN(X)`, 
+and the domain (`Df`) and range (`Bf` due to the Dutch word "bereik").
 
 ![Main menu](images/grafiek-menu.jpg)
 
 Then comes a tricky step: the program modifies itself; it 
-pokes the formula on line 10. 
+pokes the formula on line 10.
+It uses `:REM` to separate the formula from all the spaces on line 10.
 
 ![Self modifying code](images/grafiek-selfmod.jpg)
 
 Of course, as a user we don't see that poking.
-Once the formula is entered, and x/y limits are entered, the program 
-will plot the function's graph using teletext block graphics.
+Once the formula is entered, the program 
+will plot the graph of `f(x)` using the teletext block graphics.
 
 ![Graph plot](images/grafiek-plot.jpg)
 
-It can also approximate the roots of the graph
+GRAFIEK can also approximate the roots of the graph
 
 ![Roots](images/grafiek-roots.jpg)
 
-and even plot tangents (here for x=5).
+and even plot axis and tangents (here for x=5).
 
 ![Tangent](images/grafiek-tangent.jpg)
  
@@ -862,7 +871,10 @@ These comments refer to the [llist source](grafiek/grafiek.llist.2.log).
   (`V1`, `V2`, `V3`) and error handling that puzzles me.
   - Line 3 set `T$` to the title of the program.
   - Line 6 `POKE24758,0` or `POKE &H60B6,0` selects all-caps, and sets some constants.
-  - Line 10 defines the function to be plotted. Note there is `REM` with as many spaces as BASIC allows. This is important for the self modifying code.
+  - Line 10 defines the function to be plotted. 
+    Note there is `REM` with as many spaces as BASIC allows. 
+    This is important for the self modifying code.
+    Using `x`s would have been better than spaces.
   - Now I get puzzled. Line 20 sets error trapping. I guess line 40 is a crude 
     check if the function has errors. If so, it goes to 42 (trap), 
     if not it jumps to ??? 215 or 315, or 50 or 410, ... chaos.
@@ -871,6 +883,7 @@ These comments refer to the [llist source](grafiek/grafiek.llist.2.log).
 I am surprised about the level of detail I knew this machine.
 All the poke addresses, the character codes, `INP`and `OUT` features.
 I never owned a P2000. There was no internet to look up those features.
+We had a about a week for the contest - it was part of an "Alles voor Eva" fair.
 Would the contest hall have had User Manuals for us?
 
 
@@ -1092,9 +1105,11 @@ Inside cable to tape and power
 
 ## Todo
 
+- Screenshot of "box-of-interest" in GRAFIEK.
 - Try GRAFIEK in a P2000 emulator.
 - Create a SCART cable.
 - Make a cartridge with BASIC NL 1.1.
+- Make GRAFIEK 2.0.
 
 
 ## Links
