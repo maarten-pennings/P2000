@@ -177,51 +177,82 @@ selects mix mode.
 ### Special characters
 
 P2000 BASIC has several special characters. But there is no comprehensive list.
-This is copied from the Dutch [Gebruiksaanwijzing](docs/Gebruiksaanwijzing-P2000T-met-P2305-BASIC-NL.pdf).
+This is copied from various places in the Dutch 
+[Gebruiksaanwijzing](docs/Gebruiksaanwijzing-P2000T-met-P2305-BASIC-NL.pdf).
 
- |CHRS()|  description                                                         |
- |-----:|:---------------------------------------------------------------------| 
- |   0  |  einde toonstring                                                    |
- |   1  |  cursor aan                                                          | 
- |   2  |  cursor uit                                                          |
- |   3  |  zet linker helft van beeldgeheugen op scherm (OUT 48,0) en CHR$(29) |
- |   4  |  positioneer cursor. Te volgen door CHR$(regel)CHR$(kolom)           |
- |   5  |  scherm naar printer                                                 |
- |   6  |  definieer plaats cursor als nieuw cursor punt                       |
- |   7  |  korte piep                                                          |
- |   8  |  cursor naar links met overloop op vorige regel                      |
- |   9  |  horizontale TAB                                                     |
- |  10  |  cursor omlaag of scherm opvoer                                      |
- |  11  |  wis karakter links van cursor                                       |
- |  12  |  wis venster, zet cursor en cursorpunt links boven in venster        |
- |  13  |  cursor naar linker kantlijn venster                                 |
- |  14  |  zet deel-PRINT aan                                                  |
- |  15  |  wis van plaats cursor tot cursorpunt                                |
- |  16  |  cursor 1 stap naar links (tot randen van het venster)               |
- |  17  |  cursor 1 stap omhoog (tot randen van het venster)                   |
- |  18  |  cursor 1 stap omlaag (tot randen van het venster)                   |
- |  19  |  cursor 1 stap naar rechts (tot randen van het venster)              |
- |  20  |  zet cursor op kolom k. Te volgen door CHR$(k)                       |
- |  21  |  wis tot einde schermregel                                           |
- |  22  |  wis tot einde venster                                               |
- |  23  |  toonstring, CHR$(23)CHR$(T)CHR$(N1)CHR$(N2)...CHR$(0)               |
- |      |  T lengte toon (in 4T ms), frequentie 34.7/N kHz                     |
- |  24  |  cursor 1 stap naar rechts met overloop                              |
- |  28  |  zet venster op 24 regels, 40 kolommen en wis venster                |
- |  29  |  als cursor niet links in het venster staat dan CHR$(13) + CHR$(10)  |
- |  30  |  zet deel-PRINT uit                                                  |
- |  31  |  zet cursor op cursorpunt                                            |
- | 129  |  rood                                                                |
- | 130  |  groen                                                               |
- | 131  |  geel                                                                |
- | 132  |  blauw                                                               |
- | 133  |  magenta (paars)                                                     |
- | 134  |  cyaan (lichtblauw)                                                  |
- | 135  |  wit                                                                 |
- | 136  |  laat de rest van de regel knipperen                                 |
- | 137  |  schakelt knipperen weer uit                                         |
- | 140  |  schakelt op lettertekens van normale hoogte                         |
- | 141  |  schakelt op lettertekens van dubbele hoogte                         |
+ |CHRS()| description lower set                                               |
+ |-----:|:--------------------------------------------------------------------| 
+ |   0  | einde toonstring                                                    |
+ |   1  | cursor aan                                                          | 
+ |   2  | cursor uit                                                          |
+ |   3  | zet linker helft van beeldgeheugen op scherm (OUT 48,0) en CHR$(29) |
+ |   4  | positioneer cursor. Te volgen door CHR$(regel)CHR$(kolom)           |
+ |   5  | scherm naar printer                                                 |
+ |   6  | definieer plaats cursor als nieuw cursor punt                       |
+ |   7  | korte piep                                                          |
+ |   8  | cursor naar links met overloop op vorige regel                      |
+ |   9  | horizontale TAB                                                     |
+ |  10  | cursor omlaag of scherm opvoer                                      |
+ |  11  | wis karakter links van cursor                                       |
+ |  12  | wis venster, zet cursor en cursorpunt links boven in venster        |
+ |  13  | cursor naar linker kantlijn venster                                 |
+ |  14  | zet deel-PRINT aan                                                  |
+ |  15  | wis van plaats cursor tot cursorpunt                                |
+ |  16  | cursor 1 stap naar links (tot randen van het venster)               |
+ |  17  | cursor 1 stap omhoog (tot randen van het venster)                   |
+ |  18  | cursor 1 stap omlaag (tot randen van het venster)                   |
+ |  19  | cursor 1 stap naar rechts (tot randen van het venster)              |
+ |  20  | zet cursor op kolom k; te volgen door CHR$(k)                       |
+ |  21  | wis tot einde schermregel                                           |
+ |  22  | wis tot einde venster                                               |
+ |  23  | toonstring, CHR$(23)CHR$(T)CHR$(N1)CHR$(N2)...CHR$(0)               |
+ |      | T lengte toon (in 4T ms), frequentie 34.7/N kHz                     |
+ |  24  | cursor 1 stap naar rechts met overloop                              |
+ |  28  | zet venster op 24 regels, 40 kolommen en wis venster                |
+ |  29  | als cursor niet links in het venster staat dan CHR$(13) + CHR$(10)  |
+ |  30  | zet deel-PRINT uit                                                  |
+ |  31  | zet cursor op cursorpunt                                            |
+
+ |CHRS()| description higher set                                              |
+ |-----:|:--------------------------------------------------------------------| 
+ | 128  | ? _zwart (voorgrond kleur) in teletext_                             |
+ | 129  | rood (voorgrond kleur)                                              |
+ | 130  | groen (voorgrond kleur)                                             |
+ | 131  | geel (voorgrond kleur)                                              |
+ | 132  | blauw (voorgrond kleur)                                             |
+ | 133  | magenta/paars (voorgrond kleur)                                     |
+ | 134  | cyaan/lichtblauw (voorgrond kleur)                                  |
+ | 135  | wit (voorgrond kleur)                                               |
+ | 136  | laat de rest van de regel knipperen                                 |
+ | 137  | schakelt knipperen weer uit                                         |
+ | 138  | ? _start box - not used in teletext_                                |
+ | 139  | ? _end box - not used in teletext_                                  |
+ | 140  | schakelt op lettertekens van normale hoogte                         |
+ | 141  | schakelt op lettertekens van dubbele hoogte                         |
+ | 142  | ? _double width - not used in teletext_                             |
+ | 143  | ? _double height and width - not used in teletext_                  |
+ | 144  | ? grafische mode (mosaic) zwart                                     |
+ | 145  | grafische mode (mosaic) rood                                        |
+ | 146  | grafische mode (mosaic) groen                                       |
+ | 147  | grafische mode (mosaic) geel                                        |
+ | 148  | grafische mode (mosaic) blauw                                       |
+ | 149  | grafische mode (mosaic) magenta/paars                               |
+ | 150  | grafische mode (mosaic) cyaan/lichtblauw                            |
+ | 151  | grafische mode (mosaic) wit                                         |
+ | 152  | ? _conceal in teletext_                                             |
+ | 153  | mosaic continuous set (default)                                     |
+ | 154  | mosaic separated set                                                |
+ | 155  | ? _control sequence intro - not used in teletext_                   |
+ | 156  | achtergrond kleur (terug) op zwart                                  |
+ | 157  | achtergrond kleur wordt huidige voorgrond kleur                     |
+ | 158  | rest van regel: herhaal grafische char bij kleurwissel (ipv spatie) |
+ | 159  | zet chr$(158) weer uit                                              |
+
+Two small examples: 
+
+![Demo of some special characters](images/specialchars1.jpg)
+
+![Demo of some special characters](images/specialchars2.jpg)
 
 But, funny things happen. For example with ASCII code 35. Recall 12 is clear 
 screen, ensuring all next prints happen at &H5000.
@@ -251,40 +282,40 @@ ABC 3  65  66  67
 And all text is in yellow, but with code 3, not 131.
 I found this [teletext table](https://www.wiels.nl/teletext/).
 
- | poke| name| long name              | description                                                                               |
- |----:|:---:|:-----------------------|:------------------------------------------------------------------------------------------|
- |  0  | ABK | ALPHA BLACK            | alphanumeric set (dus niet 1 van de 2 mosaic sets), kleur zwart.                          |
- |  1  | ANR | ALPHA RED              | alphanumeric set, kleur rood.                                                             |
- |  2  | ANG | ALPHA GREEN            | alphanumeric set, kleur groen.                                                            |
- |  3  | ANY | ALPHA YELLOW           | alphanumeric set, kleur geel.                                                             |
- |  4  | ANB | ALPHA BLUE             | alphanumeric set, kleur blauw.                                                            |
- |  5  | ANM | ALPHA MAGENTA          | alphanumeric set, kleur magenta.                                                          |
- |  6  | ANC | ALPHA CYAN             | alphanumeric set, kleur cyaan.                                                            |
- |  7  | ANW | ALPHA WHITE            | alphanumeric set, kleur wit.                                                              |
- |  8  | FSH | FLASH                  | knipperend.                                                                               |
- |  9  | STD | STEADY                 | niet knipperend.                                                                          |
- | 10  | SBX | START BOX              | wordt niet gebruikt bij teletekst.                                                        |
- | 11  | EBX | END BOX                | wordt niet gebruikt bij teletekst.                                                        |
- | 12  | NSZ | NORMAL SIZE            | hoogte van de letter = 1 regel.                                                           |
- | 13  | DBH | DOUBLE HEIGHT          | hoogte van de letter = 2 regels. (zie opmerkingen)                                        |
- | 14  | DBW | DOUBLE WIDTH           | 2 x normale breedte, wordt niet gebruikt bij teletekst.                                   |
- | 15  | DBS | DOUBLE SIZE            | 2 x normale breedte en hoogte, wordt niet gebruikt bij teletekst.                         |
- | 16  | MBK | MOSAIC BLACK           | mosaic set (1 van de twee, zie 025 en 026), kleur zwart.                                  |
- | 17  | MSR | MOSAIC RED             | mosaic set, kleur rood.                                                                   |
- | 18  | MSG | MOSAIC GREEN           | mosaic set, kleur groen.                                                                  |
- | 19  | MSY | MOSAIC YELLOW          | mosaic set, kleur geel.                                                                   |
- | 20  | MSB | MOSAIC BLUE            | mosaic set, kleur blauw.                                                                  |
- | 21  | MSM | MOSAIC MAGENTA         | mosaic set, kleur magenta.                                                                |
- | 22  | MSC | MOSAIC CYAN            | mosaic set, kleur cyaan.                                                                  |
- | 23  | MSW | MOSAIC WHITE           | mosaic set, kleur wit.                                                                    |
- | 24  | CDY | CONCEAL DISPLAY        | verborgen text, opgeheven wanneer andere kleur wordt gekozen.                             |
- | 25  | SPL | STOP LINING            | bij mosaic continuous set gebruiken.                                                      |
- | 26  | STL | START LINING           | bij mosaic seperated set gebruiken.                                                       |
- | 27  | CSI | CONTROL SEQUENCE INTRO | wordt niet gebruikt bij teletekst.                                                        |
- | 28  | BBD | BLACK BACKGROUND       | achtergrondkleur van de characters zwart.                                                 |
- | 29  | NBD | NEW BACKGROUND         | achtergrondkleur wordt de kleur van de characters.                                        |
- | 30  | HMS | HOLD MOSAIC            | bij mosaic set de laatst gebruikte character weergeven als er een control character staat.|
- | 31  | RMS | RELEASE MOSAIC         | bij mosaic set een spatie weergeven als er een control character staat (default).         |
+ | poke| name| long name              | description                                                                              |
+ |----:|:---:|:-----------------------|:-----------------------------------------------------------------------------------------|
+ |  0  | ABK | ALPHA BLACK            | alphanumeric set (dus niet 1 van de 2 mosaic sets), kleur zwart                          |
+ |  1  | ANR | ALPHA RED              | alphanumeric set, kleur rood                                                             |
+ |  2  | ANG | ALPHA GREEN            | alphanumeric set, kleur groen                                                            |
+ |  3  | ANY | ALPHA YELLOW           | alphanumeric set, kleur geel                                                             |
+ |  4  | ANB | ALPHA BLUE             | alphanumeric set, kleur blauw                                                            |
+ |  5  | ANM | ALPHA MAGENTA          | alphanumeric set, kleur magenta                                                          |
+ |  6  | ANC | ALPHA CYAN             | alphanumeric set, kleur cyaan                                                            |
+ |  7  | ANW | ALPHA WHITE            | alphanumeric set, kleur wit                                                              |
+ |  8  | FSH | FLASH                  | knipperend                                                                               |
+ |  9  | STD | STEADY                 | niet knipperend                                                                          |
+ | 10  | SBX | START BOX              | wordt niet gebruikt bij teletekst                                                        |
+ | 11  | EBX | END BOX                | wordt niet gebruikt bij teletekst                                                        |
+ | 12  | NSZ | NORMAL SIZE            | hoogte van de letter = 1 regel                                                           |
+ | 13  | DBH | DOUBLE HEIGHT          | hoogte van de letter = 2 regels (zie opmerkingen)                                        |
+ | 14  | DBW | DOUBLE WIDTH           | 2 x normale breedte, wordt niet gebruikt bij teletekst                                   |
+ | 15  | DBS | DOUBLE SIZE            | 2 x normale breedte en hoogte, wordt niet gebruikt bij teletekst                         |
+ | 16  | MBK | MOSAIC BLACK           | mosaic set (1 van de twee, zie 25 en 26), kleur zwart                                    |
+ | 17  | MSR | MOSAIC RED             | mosaic set, kleur rood                                                                   |
+ | 18  | MSG | MOSAIC GREEN           | mosaic set, kleur groen                                                                  |
+ | 19  | MSY | MOSAIC YELLOW          | mosaic set, kleur geel                                                                   |
+ | 20  | MSB | MOSAIC BLUE            | mosaic set, kleur blauw                                                                  |
+ | 21  | MSM | MOSAIC MAGENTA         | mosaic set, kleur magenta                                                                |
+ | 22  | MSC | MOSAIC CYAN            | mosaic set, kleur cyaan                                                                  |
+ | 23  | MSW | MOSAIC WHITE           | mosaic set, kleur wit                                                                    |
+ | 24  | CDY | CONCEAL DISPLAY        | verborgen text, opgeheven wanneer andere kleur wordt gekozen                             |
+ | 25  | SPL | STOP LINING            | bij mosaic continuous set gebruiken                                                      |
+ | 26  | STL | START LINING           | bij mosaic separated set gebruiken                                                       |
+ | 27  | CSI | CONTROL SEQUENCE INTRO | wordt niet gebruikt bij teletekst                                                        |
+ | 28  | BBD | BLACK BACKGROUND       | achtergrondkleur van de characters zwart                                                 |
+ | 29  | NBD | NEW BACKGROUND         | achtergrondkleur wordt de kleur van de characters                                        |
+ | 30  | HMS | HOLD MOSAIC            | bij mosaic set de laatst gebruikte character weergeven als er een control character staat|
+ | 31  | RMS | RELEASE MOSAIC         | bij mosaic set een spatie weergeven als er een control character staat (default)         |
 
 
 
