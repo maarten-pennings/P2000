@@ -927,7 +927,7 @@ Photos of my P200T for future reference.
 
 Main unit
 
-![Main unit](images/main-3d.jpg)
+![Main unit](gallery/main-3d.jpg)
 
 ---------------------------------------
 
@@ -1158,7 +1158,7 @@ Inside power supply
 
 Inside power button
 
-![Inside power button](gallery/inside-button.jpg)
+![Inside power button](gallery/inside-powbutton.jpg)
 
 ---------------------------------------
 
