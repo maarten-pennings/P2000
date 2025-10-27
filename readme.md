@@ -24,6 +24,9 @@ Scroll down for an extensive [photo gallery](#photo-gallery).
   - [P2000 BASIC features](#p2000-basic-features)
 
 - [Video](#video)
+ - [Mods](#mods)
+ - [DIN-SCART cable](#din-scart-cable)
+ - [Result](#result)
   
 - [Cartridge](#cartridge)
   - [Memory map](#memory-map)
@@ -444,7 +447,7 @@ Fortunately, it had all the pins I needed, except AUDIO-L.
 
 I cut all wires on the SCART side, inserted all resistors, and closed the cable again.
 
-### result
+### Result
 
 I'm very happy with the result. Quality is much better.
 
