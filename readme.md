@@ -403,13 +403,17 @@ How do I grade the P2000 BASIC? My reference is Commodore 64 (C64) BASIC.
 
 ## Video 
 
+I first analysed my board and found three mods.
+next was trying to make an DIN-SCART cable.
+
+### Mods
 
 In [Natlab nieuwsbrief](https://github.com/p2000t/documentation/blob/main/NatLab/nieuwsbriefnatlab000-031.pdf)
 we find (page 5 and 6) a remarks about the SYNC signal. It seems my P2000T has that mod:
 
 ![Video mod1](images/videomod1.jpg)
 
-In [Natlab nieuwsbrief](https://github.com/p2000t/documentation/blob/main/NatLab/nieuwsbriefnatlab000-031.pdf)
+In [Natlab nieuwsbrief](https://github.com/p2000t/documentation/blob/main/NatLab/nieuwsbriefnatlab128-159.pdf)
 we find (page 156) a remarks about adding a transistor to boost the SYNC signal. It seems my P2000T has that mod:
 
 ![Video mod2](images/videomod2.jpg)
@@ -418,6 +422,38 @@ I also believe the daughter board is a mod.
 It seems to replace SAA5020 chip with a pcb that contains the SAA5020 plus some extra stuff.
 
 ![Video mod3](images/videomod3.jpg)
+
+
+### DIN-SCART cable
+
+I found an nice [one pager](https://www.retrospace.nl/P2000T/RGB-SCART.pdf) with 
+instructions how to make a DIN-SCART cable.
+
+I happen to have DIN-SCART cable, but it didn't work, so I opened it.
+On the DIN side, all six pins were wired, but with wrong colors. 
+I decided to not change the DIN side, it is too small. After closing the plug,
+I won't see the wrong colors anymore.
+
+In the picture below, the colored lines have the color of the actual wires 
+in _my_ cable. The signals they carry has been written as labels to the wires.
+
+![DIN-SCART wiring](images/DIN-SCART-wiring.png)
+
+There was another issue _my_ SCART plug did not have all pins, not even half.
+Fortunately, it had all the pins I needed, except AUDIO-L. 
+
+I cut all wires on the SCART side, inserted all resistors, and closed the cable again.
+
+### result
+
+I'm very happy with the result. Quality is much better.
+
+![Video improvement](images/video-improvement.jpg)
+
+What is more important, with the old setup (RF cable), the TV got out of sync 
+when there were large non-black area's (text with non-black background).
+That problem is gone!
+
 
 
 ## Cartridge
@@ -747,7 +783,10 @@ and even plot axis and tangents (here for x=5).
 ![Tangent](images/grafiek-tangent.jpg)
  
 The feature that I liked best is that the program allowed one to zoom-in 
-on the graph (or out) by drawing a "box of interest".
+on the graph (or out) by drawing a "box of interest" (the yellow 
+zone in the screenshot left).
+
+![Zoom](images/grafiek-zoom.jpg)
 
 
 ### LLIST 
@@ -1207,11 +1246,9 @@ Inside tape PCB
 ![Inside tape PCB](gallery/inside-tapepcb.jpg)
 
 
-## Todo
+## Possible TODOs
 
-- Screenshot of "box-of-interest" in GRAFIEK.
 - Try GRAFIEK in a P2000 emulator.
-- Create a SCART cable.
 - Make a cartridge with BASIC NL 1.1.
 - Make GRAFIEK 2.0.
 
