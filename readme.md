@@ -24,9 +24,9 @@ Scroll down for an extensive [photo gallery](#photo-gallery).
   - [P2000 BASIC features](#p2000-basic-features)
 
 - [Video](#video)
- - [Mods](#mods)
- - [DIN-SCART cable](#din-scart-cable)
- - [Result](#result)
+  - [Mods](#mods)
+  - [DIN-SCART cable](#din-scart-cable)
+  - [Result](#result)
   
 - [Cartridge](#cartridge)
   - [Memory map](#memory-map)
