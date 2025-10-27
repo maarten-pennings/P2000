@@ -3,14 +3,14 @@
 I retrieved a Philips P2000T from my attic, and started to investigate it.
 This document describes my findings.
 
-First getting to understand BASIC, quick look at my video options, 
-detailing the BASIC cartridge.- [BASIC](#basic)
-##Video
-I also tried to archive a P2000 program I wrote 40 years ago.
+Firstly, getting to understand BASIC, next a quick look at improving my video, 
+next, detailing the BASIC cartridge. I also tried to archive a P2000 program 
+I wrote 40 years ago.
 
 ![P2000T](images/p2000t.jpg)
 
 Scroll down for an extensive [photo gallery](#photo-gallery).
+
 
 ## Contents
 
