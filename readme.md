@@ -889,7 +889,16 @@ Would the contest hall have had User Manuals for us?
 
 ## Photo gallery
 
+Photos of my P200T for future reference.
+
+
 ### Main unit
+
+Main unit
+
+![Main unit](images/main-3d.jpg)
+
+---------------------------------------
 
 Main unit top side
 
@@ -1062,6 +1071,12 @@ Inside PCB east side
 
 ---------------------------------------
 
+Inside PCB west side
+
+![Inside PCB west side](gallery/inside-pcb-west.jpg)
+
+---------------------------------------
+
 Inside PCB south east zoom
 
 ![Inside PCB south east zoom](gallery/inside-pcb-southeast.jpg)
@@ -1101,6 +1116,30 @@ Inside cable to keyboard
 Inside cable to tape and power
 
 ![Inside cable to tape and power](gallery/inside-cable-tapepow.jpg)
+
+---------------------------------------
+
+Inside power supply
+
+![Inside power supply](gallery/inside-power.jpg)
+
+---------------------------------------
+
+Inside power button
+
+![Inside power button](gallery/inside-button.jpg)
+
+---------------------------------------
+
+Inside tape top
+
+![Inside tape top](gallery/inside-tapetop.jpg)
+
+---------------------------------------
+
+Inside tape PCB
+
+![Inside tape PCB](gallery/inside-tapepcb.jpg)
 
 
 ## Todo
