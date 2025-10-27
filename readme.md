@@ -3,7 +3,9 @@
 I retrieved a Philips P2000T from my attic, and started to investigate it.
 This document describes my findings.
 
-First getting to understand BASIC, later detailing the BASIC cartridge.
+First getting to understand BASIC, quick look at my video options, 
+detailing the BASIC cartridge.- [BASIC](#basic)
+##Video
 I also tried to archive a P2000 program I wrote 40 years ago.
 
 ![P2000T](images/p2000t.jpg)
@@ -20,6 +22,8 @@ Scroll down for an extensive [photo gallery](#photo-gallery).
   - [Special characters](#special-characters)
   - [BASIC versions](#basic-versions)
   - [P2000 BASIC features](#p2000-basic-features)
+
+- [Video](#video)
   
 - [Cartridge](#cartridge)
   - [Memory map](#memory-map)
@@ -83,7 +87,9 @@ Tip: Numeric Shift 9 (`M`) toggles paged listing; when `LIST` has filled one
 screen, a `meer` (more) is shown.
 
 This overview is for BASIC 1.1; BASIC 1.0 UK is severely limited: e.g. 
-the cursor keys don't work and and `C` is for one character only.
+the cursor keys don't work and and `C` is temporary.
+The old `EDIT` seems to be more VI like than I thought, see 
+[P2000GG](https://github.com/p2000t/documentation/blob/main/P2000gg/p2000ggnieuwsbrief1-7.pdf) page 5.
 
 
 ### Tape
@@ -117,6 +123,9 @@ The great thing is that this is actually a _serial_ port.
 To connect it to a PC, you need an old style D25 connector/converter, and 
 a cable to convert from serial to USB. I used a 
 [US232R-500-BULK](https://nl.mouser.com/ProductDetail/FTDI/US232R-500-BULK).
+
+> Just using RX/TX is not enough, probably RTS needs to be high as well.
+> Check details in [natlab nieuwsbrief](https://github.com/p2000t/documentation/blob/main/NatLab/nieuwsbriefnatlab064-095.pdf) nr 76
 
 In the PC start a terminal, e.g. [ninjaterm](https://ninjaterm-app.mbedded.ninja/), 
 connect to the correct COM port with settings 1200,8,N,1, and 
@@ -213,40 +222,42 @@ This is copied from various places in the Dutch
  |  30  | zet deel-PRINT uit                                                  |
  |  31  | zet cursor op cursorpunt                                            |
 
- |CHRS()| description higher set                                              |
- |-----:|:--------------------------------------------------------------------| 
- | 128  | ? _zwart (voorgrond kleur) in teletext_                             |
- | 129  | rood (voorgrond kleur)                                              |
- | 130  | groen (voorgrond kleur)                                             |
- | 131  | geel (voorgrond kleur)                                              |
- | 132  | blauw (voorgrond kleur)                                             |
- | 133  | magenta/paars (voorgrond kleur)                                     |
- | 134  | cyaan/lichtblauw (voorgrond kleur)                                  |
- | 135  | wit (voorgrond kleur)                                               |
- | 136  | laat de rest van de regel knipperen                                 |
- | 137  | schakelt knipperen weer uit                                         |
- | 138  | ? _start box - not used in teletext_                                |
- | 139  | ? _end box - not used in teletext_                                  |
- | 140  | schakelt op lettertekens van normale hoogte                         |
- | 141  | schakelt op lettertekens van dubbele hoogte                         |
- | 142  | ? _double width - not used in teletext_                             |
- | 143  | ? _double height and width - not used in teletext_                  |
- | 144  | ? grafische mode (mosaic) zwart                                     |
- | 145  | grafische mode (mosaic) rood                                        |
- | 146  | grafische mode (mosaic) groen                                       |
- | 147  | grafische mode (mosaic) geel                                        |
- | 148  | grafische mode (mosaic) blauw                                       |
- | 149  | grafische mode (mosaic) magenta/paars                               |
- | 150  | grafische mode (mosaic) cyaan/lichtblauw                            |
- | 151  | grafische mode (mosaic) wit                                         |
- | 152  | ? _conceal in teletext_                                             |
- | 153  | mosaic continuous set (default)                                     |
- | 154  | mosaic separated set                                                |
- | 155  | ? _control sequence intro - not used in teletext_                   |
- | 156  | achtergrond kleur (terug) op zwart                                  |
- | 157  | achtergrond kleur wordt huidige voorgrond kleur                     |
- | 158  | rest van regel: herhaal grafische char bij kleurwissel (ipv spatie) |
- | 159  | zet chr$(158) weer uit                                              |
+The column "dft" indicates how each line starts.
+
+ |CHRS()|dft| description higher set                                              |
+ |-----:|:-:|:--------------------------------------------------------------------| 
+ | 128  |   | ? _zwart (voorgrond kleur) in teletext_                             |
+ | 129  |   | rood (voorgrond kleur)                                              |
+ | 130  |   | groen (voorgrond kleur)                                             |
+ | 131  |   | geel (voorgrond kleur)                                              |
+ | 132  |   | blauw (voorgrond kleur)                                             |
+ | 133  |   | magenta/paars (voorgrond kleur)                                     |
+ | 134  |   | cyaan/lichtblauw (voorgrond kleur)                                  |
+ | 135  | × | wit (voorgrond kleur)                                               |
+ | 136  |   | laat de rest van de regel knipperen                                 |
+ | 137  | × | schakelt knipperen weer uit                                         |
+ | 138  |   | ? _start box - not used in teletext_                                |
+ | 139  |   | ? _end box - not used in teletext_                                  |
+ | 140  | × | schakelt op lettertekens van normale hoogte                         |
+ | 141  |   | schakelt op lettertekens van dubbele hoogte                         |
+ | 142  |   | ? _double width - not used in teletext_                             |
+ | 143  |   | ? _double height and width - not used in teletext_                  |
+ | 144  |   | ? grafische mode (mosaic) zwart                                     |
+ | 145  |   | grafische mode (mosaic) rood                                        |
+ | 146  |   | grafische mode (mosaic) groen                                       |
+ | 147  |   | grafische mode (mosaic) geel                                        |
+ | 148  |   | grafische mode (mosaic) blauw                                       |
+ | 149  |   | grafische mode (mosaic) magenta/paars                               |
+ | 150  |   | grafische mode (mosaic) cyaan/lichtblauw                            |
+ | 151  |   | grafische mode (mosaic) wit                                         |
+ | 152  |   | ? _conceal in teletext_                                             |
+ | 153  | × | mosaic continuous set                                               |
+ | 154  |   | mosaic separated set                                                |
+ | 155  |   | ? _control sequence intro - not used in teletext_                   |
+ | 156  |   | achtergrond kleur (terug) op zwart                                  |
+ | 157  |   | achtergrond kleur wordt huidige voorgrond kleur                     |
+ | 158  |   | rest van regel: herhaal grafische char bij kleurwissel (ipv spatie) |
+ | 159  | × | zet chr$(158) weer uit                                              |
 
 Two small examples: 
 
@@ -254,7 +265,10 @@ Two small examples:
 
 ![Demo of some special characters](images/specialchars2.jpg)
 
-But, funny things happen. For example with ASCII code 35. Recall 12 is clear 
+A puzzling example can also be found in 
+[Nieuwsbrief natlab](https://github.com/p2000t/documentation/blob/main/NatLab/nieuwsbriefnatlab128-159.pdf) at 127.
+
+Funny things happen. For example with ASCII code 35. Recall 12 is clear 
 screen, ensuring all next prints happen at &H5000.
 
 ```BASIC
@@ -386,6 +400,25 @@ How do I grade the P2000 BASIC? My reference is Commodore 64 (C64) BASIC.
 - I'm not sure what to think about `PRINT USING`. Very verbose. Not flexible 
   enough. can only be used with `PRINT` - why not in a string expression?
   
+
+## Video 
+
+
+In [Natlab nieuwsbrief](https://github.com/p2000t/documentation/blob/main/NatLab/nieuwsbriefnatlab000-031.pdf)
+we find (page 5 and 6) a remarks about the SYNC signal. It seems my P2000T has that mod:
+
+![Video mod1](images/videomod1.jpg)
+
+In [Natlab nieuwsbrief](https://github.com/p2000t/documentation/blob/main/NatLab/nieuwsbriefnatlab000-031.pdf)
+we find (page 156) a remarks about adding a transistor to boost the SYNC signal. It seems my P2000T has that mod:
+
+![Video mod2](images/videomod2.jpg)
+
+I also believe the daughter board is a mod.
+It seems to replace SAA5020 chip with a pcb that contains the SAA5020 plus some extra stuff.
+
+![Video mod3](images/videomod3.jpg)
+
 
 ## Cartridge
 
@@ -910,6 +943,7 @@ These comments refer to the [llist source](grafiek/grafiek.llist.2.log).
     check if the function has errors. If so, it goes to 42 (trap), 
     if not it jumps to ??? 215 or 315, or 50 or 410, ... chaos.
   - Line 50 tells the user there is an error in the function definition.
+  - Note that error 64 means that the STOP key is pressed.
 
 I am surprised about the level of detail I knew this machine.
 All the poke addresses, the character codes, `INP`and `OUT` features.
