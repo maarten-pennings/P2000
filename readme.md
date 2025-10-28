@@ -24,6 +24,7 @@ Scroll down for an extensive [photo gallery](#photo-gallery).
   - [P2000 BASIC features](#p2000-basic-features)
 
 - [Video](#video)
+  - [RF link](#rf-link)
   - [Mods](#mods)
   - [DIN-SCART cable](#din-scart-cable)
   - [Result](#result)
@@ -271,6 +272,33 @@ Two small examples:
 A puzzling example can also be found in 
 [Nieuwsbrief natlab](https://github.com/p2000t/documentation/blob/main/NatLab/nieuwsbriefnatlab128-159.pdf) at 127.
 
+```BASIC
+100 REM Color demo
+110 N=50 : GOSUB 200
+120 N=50+128 : GOSUB 200
+130 END
+200 FOR B=129 TO 135
+210 FOR F=129 TO 135
+220 PRINT CHR$(B);CHR$(157);CHR$(F);CHR$(N+30);CHR$(N);
+230 NEXT F:PRINT:NEXT B:PRINT:RETURN
+```
+
+![Colors](images/colors.jpg).
+
+Finally, a demo you need to _hear_:
+
+```BASIC
+90 CLEAR 500:REM Frere Jacques
+100 DEF FNC$(F)=CHR$(INT(34700/F))
+110 DEF FNPLAY$(MS,TUNE$)=CHR$(23)+CHR$(MS/4)+TUNE$+CHR$(0)
+120 S1$=FNC$(262)+FNC$(294)+FNC$(323)+FNC$(262)
+130 S2$=FNC$(330)+FNC$(349)+FNC$(392)
+140 S3$=FNC$(392)+FNC$(440)+FNC$(392)+FNC$(349)+FNC$(330)+FNC$(262)
+150 S4$=FNC$(262)+FNC$(196)+FNC$(262)
+160 T$=S1$+S1$+S2$+S2$+S3$+S3$+S4$+S4$
+170 PRINT FNPLAY$(300,T$)
+```
+
 Funny things happen. For example with ASCII code 35. Recall 12 is clear 
 screen, ensuring all next prints happen at &H5000.
 
@@ -406,23 +434,53 @@ How do I grade the P2000 BASIC? My reference is Commodore 64 (C64) BASIC.
 
 ## Video 
 
-I first analysed my board and found three mods.
-next was trying to make an DIN-SCART cable.
+I started with using the RF link.
+I then analyzed my board and found three mods were applied.
+Finally, I made a DIN-SCART cable.
+
+
+### RF link
+
+The P2000T has two video ports.
+One is the traditional RF port, to connect to a TV (that's the "T" in P2000T).
+The other is some RGB port.
+
+![TV channel](images/videoports.jpg)
+
+I somehow have an DIN6 to SCART but it didn't work; the screen was full white.
+So I started with the RF link.
+That did require to scan for the correct channel: C3 or 57 MHz.
+I have it on preset P3 which I labeled `P2000`.
+
+![TV channel](images/tvchannel.jpg)
+
+The quality was pretty lousy, sorry most screenshots in this document are 
+with using the RF link. Onky very late I decided to make a DIN-SCART link.
+
+By the way, [SCART](https://nl.wikipedia.org/wiki/Scart) comes from 
+France, and is there known as Péritel. Interestingly, SCART was mandated 
+in Europe from 1981 onward, whereas the P2000 hit the market in 
+[1980](https://en.wikipedia.org/wiki/Philips_P2000). It should come as 
+no surprise that this DIN RGB link needs tweaks to get running.
+
 
 ### Mods
 
 In [Natlab nieuwsbrief](https://github.com/p2000t/documentation/blob/main/NatLab/nieuwsbriefnatlab000-031.pdf)
-we find (page 5 and 6) a remarks about the SYNC signal. It seems my P2000T has that mod:
+we find (page 5 and 6) a remarks about the SYNC signal. It seems my P2000T has that mod, and it seems 
+needed for the DIN to SCART link.
 
 ![Video mod1](images/videomod1.jpg)
 
 In [Natlab nieuwsbrief](https://github.com/p2000t/documentation/blob/main/NatLab/nieuwsbriefnatlab128-159.pdf)
-we find (page 156) a remarks about adding a transistor to boost the SYNC signal. It seems my P2000T has that mod:
+we find (page 156) a remarks about adding a transistor to boost the SYNC signal. It seems my P2000T has that mod,
+and it seems helpful for the DIN to SCART link.
 
 ![Video mod2](images/videomod2.jpg)
 
 I also believe the daughter board is a mod.
 It seems to replace SAA5020 chip with a pcb that contains the SAA5020 plus some extra stuff.
+I have no idea what this is doing.
 
 ![Video mod3](images/videomod3.jpg)
 
@@ -443,9 +501,15 @@ in _my_ cable. The signals they carry has been written as labels to the wires.
 ![DIN-SCART wiring](images/DIN-SCART-wiring.png)
 
 There was another issue _my_ SCART plug did not have all pins, not even half.
-Fortunately, it had all the pins I needed, except AUDIO-L. 
+Fortunately, it had all the pins I needed, except AUDIO-L. But they were 
+connected wrongly.
 
 I cut all wires on the SCART side, inserted all resistors, and closed the cable again.
+Note, I even followed the tip: if you don't have a 560Ω resistor (not in basic range),
+use two in parallel: 3k3Ω en 680Ω.
+
+![SCART](images/scart.jpg)
+
 
 ### Result
 
