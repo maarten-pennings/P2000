@@ -283,7 +283,7 @@ A puzzling example can also be found in
 230 NEXT F:PRINT:NEXT B:PRINT:RETURN
 ```
 
-![Colors](images/colors.jpg).
+![Colors](images/colors.jpg)
 
 Finally, a demo you need to _hear_:
 
@@ -397,15 +397,16 @@ How do I grade the P2000 BASIC? My reference is Commodore 64 (C64) BASIC.
 
 - Having to use `EDIT` instead of screen editing is a bummer.
 
-- Good to have support for hex with (`&h9000`) and `HEX$()`. 
-  Who needs `OCT$()`, and where is `BIN$()`?
+- Good to have support for hex with (`&H9000`) and `HEX$()`. 
+  Who needs `OCT$()`, but where is `BIN$()`?
 
 - I'm missing `DEEK()` and `DOKE()` for two-byte addresses.
 
 - Nice there is a way to get the address of a variable with `VARPTR(var)`.
 
 - `DEF FN` is much more useful than in e.g. C64, since the function can have 
-  multiple arguments and the return type can be string.
+  multiple arguments and the return type can be string. See for example 
+  `FNPLAY$()` in a previous section.
   
 - Unlike C64 BASIC where all computations are done in single precision, 
   P2000 BASIC has several data types: single, double, int, string.
@@ -447,7 +448,8 @@ The other is some RGB port.
 
 ![TV channel](images/videoports.jpg)
 
-I somehow have an DIN6 to SCART but it didn't work; the screen was full white.
+I somehow did have an DIN6 to SCART cable, but it didn't work; 
+the screen was bright white.
 So I started with the RF link.
 That did require to scan for the correct channel: C3 or 57 MHz.
 I have it on preset P3 which I labeled `P2000`.
@@ -455,7 +457,7 @@ I have it on preset P3 which I labeled `P2000`.
 ![TV channel](images/tvchannel.jpg)
 
 The quality was pretty lousy, sorry most screenshots in this document are 
-with using the RF link. Onky very late I decided to make a DIN-SCART link.
+with using the RF link. Only very late I decided to make a DIN-SCART link.
 
 By the way, [SCART](https://nl.wikipedia.org/wiki/Scart) comes from 
 France, and is there known as Péritel. Interestingly, SCART was mandated 
@@ -467,7 +469,7 @@ no surprise that this DIN RGB link needs tweaks to get running.
 ### Mods
 
 In [Natlab nieuwsbrief](https://github.com/p2000t/documentation/blob/main/NatLab/nieuwsbriefnatlab000-031.pdf)
-we find (page 5 and 6) a remarks about the SYNC signal. It seems my P2000T has that mod, and it seems 
+we find (page 5 and 6) a remarks about inverting the SYNC signal. It seems my P2000T has that mod, and it seems 
 needed for the DIN to SCART link.
 
 ![Video mod1](images/videomod1.jpg)
@@ -478,7 +480,7 @@ and it seems helpful for the DIN to SCART link.
 
 ![Video mod2](images/videomod2.jpg)
 
-I also believe the daughter board is a mod.
+I also believe the daughter board is a video mod.
 It seems to replace SAA5020 chip with a pcb that contains the SAA5020 plus some extra stuff.
 I have no idea what this is doing.
 
@@ -500,25 +502,27 @@ in _my_ cable. The signals they carry has been written as labels to the wires.
 
 ![DIN-SCART wiring](images/DIN-SCART-wiring.png)
 
-There was another issue _my_ SCART plug did not have all pins, not even half.
-Fortunately, it had all the pins I needed, except AUDIO-L. But they were 
-connected wrongly.
+There was another issue: _my_ SCART plug did not have all pins, not even half.
+Fortunately, it had all the pins I needed, except AUDIO-L. But that is fine.
+Of course, the pins were connected wrongly.
 
-I cut all wires on the SCART side, inserted all resistors, and closed the cable again.
-Note, I even followed the tip: if you don't have a 560Ω resistor (not in basic range),
-use two in parallel: 3k3Ω en 680Ω.
+I cut all wires on the SCART side, inserted all resistors and shrink tube, 
+and closed the cable again. Fortunately, there is plenty of room in the SCART 
+plug (that was the main reason to only solder on this side).
+Note, I did followed the tip: if you don't have a 560Ω resistor 
+(not in basic range), use two in parallel: 3k3Ω en 680Ω.
 
 ![SCART](images/scart.jpg)
 
 
 ### Result
 
-I'm very happy with the result. Quality is much better.
+I'm very happy with the result. Quality is much better; especially deeper colors.
 
 ![Video improvement](images/video-improvement.jpg)
 
-What is more important, with the old setup (RF cable), the TV got out of sync 
-when there were large non-black area's (text with non-black background).
+What is more important: with the old setup (RF cable), the TV lost sync 
+when there were large non-black areas (text with non-black background).
 That problem is gone!
 
 
