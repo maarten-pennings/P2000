@@ -601,6 +601,7 @@ I have no idea what this is doing.
 
 I found an nice [one pager](https://www.retrospace.nl/P2000T/RGB-SCART.pdf) with 
 instructions how to make a DIN-SCART cable.
+I hand soldered resistors, but you could also make a [PCB](https://github.com/ifilot/p2000t-scart-connector-pcb).
 
 I happen to have DIN-SCART cable, but it didn't work, so I opened it.
 On the DIN side, all six pins were wired, but with wrong colors. 
@@ -1436,7 +1437,7 @@ Inside tape PCB
 
 ## Links
 
-- [Philips P2000T by Ivo Filot](https://philips-p2000t.nl/).
+- [Philips P2000T by Ivo Filot](https://philips-p2000t.nl/) or his [GitHub](https://github.com/ifilot?tab=repositories&q=p2000).
 - [Preservation project](https://github.com/p2000t), especially 
   - [Nieuwsbrief Natlab](https://github.com/p2000t/documentation/tree/main/NatLab)
   - [Software](https://github.com/p2000t/software)
