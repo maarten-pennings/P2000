@@ -23,6 +23,8 @@ Scroll down for an extensive [photo gallery](#photo-gallery).
   - [BASIC versions](#basic-versions)
   - [P2000 BASIC features](#p2000-basic-features)
 
+- [Tekstbewerking](#tekstbewerking)
+
 - [Video](#video)
   - [RF link](#rf-link)
   - [Mods](#mods)
@@ -431,6 +433,114 @@ How do I grade the P2000 BASIC? My reference is Commodore 64 (C64) BASIC.
   
 - I'm not sure what to think about `PRINT USING`. Very verbose. Not flexible 
   enough. can only be used with `PRINT` - why not in a string expression?
+  
+
+
+## Tekstbewerking
+
+I have a second cartridge called "Tekstbewerking" P 2301.
+That's Dutch for word processing.
+
+![Screenshot tekstbewerking](images/tekstbewerking.jpg)
+
+I was a bit puzzled how that operates, and I couldn't find any user manual.
+Here is what I found out.
+
+- The top 3 lines are the various status bars.
+  - Line one normally shows `WP 1` and I have no idea what that means;
+    maybe "WordProcessing" slot "1" (see below for slots).
+    Once a tape is inserted, it starts "syncing" to tape (reading directory), 
+    and it shows the filename instead of `WP`.
+    If a `T` is flickering, the tape is running (save, load, ...).
+  - Next line is some printer settings: `REG/PAG` is probably lines per page,
+    `REGELAFST` is probably line spacing, and `TEKENAFST` is probably font size.
+    There is a fourth setting, out of view now: spaces before the left margin.
+  - Third line is the "ruler". First three characters show the line the cursor 
+    is on, every 10 spaces the column number is printed, a `*` marks a tab stop,
+    `/` mark being near to the right margin (sounding a bell), and a small block 
+    marks the left margin. The big block marks the column of the cursor.
+
+- When the "Tekstbewerking" cartridge is inserted and the P2000 turned on, 
+  you are immediately in a blank document. You can start typing. 
+  Some editing keys are working:
+  - `←` for cursor left, with shift moves to begin of line.
+  - `↑` for cursor up, with shift moves to begin of document.
+  - `↓` for cursor down, with shift moves to end of document.
+  - `→` for cursor right, does not seem to have a shift function.
+  - `-×-` deletes a line, with shift deletes document, without confirmations (!).
+  - The underscore key inverts text - do not know what that is (underlining "on"?).
+  - Pressing BS backspaces; pressing CODE then BS deletes.
+    Note that CODE is not a shift key, press CODE, release it, then press BS.
+    If you keep CODE pressed, after a second or so, the keyboard buffer is 
+    filled up (P2000 has auto repeat for keys), and the P2000 starts beeping.
+  
+- There are no function keys, and no control key, so it took me quite some time
+  to figure out how to change the settings. 
+  - You have to press CODE `↑` to edit the ruler. Once in the ruler, move left 
+    and right with the cursor keys, and enter "ruler" characters like 
+    `-` (nothing ie erase tabs), `*` (tabstop), `+` (left tabstop), 
+    `/` (bell zone), RETURN (set right margin). 
+    With CODE `↓` you return to the document.
+  - While editing the ruler (after pressing CODE `↑`), another CODE `↑` moves to
+    settings. Here press TAB to cycle through the four settings  `REG/PAG`, 
+    `REGELAFST`, `TEKENAFST`  and left margin. To change a settings cycle through 
+    the values with `↑` and `↓`.  With CODE `↓` you return to ruler editing,
+    and another CODE `↓` brings you back to the document.
+
+- Shift numeric-`00` seems to print, but I do not get serial output, only 
+  `DRUKKER CONTROLEREN` (check printer).
+ 
+- Tape handling still puzzles me. 
+  - I believe that a tape has 7 slots, each storing a document.
+  - If you insert an empty cassette it starts to spin and a `T` is shown 
+    in status line 1. Then it asks "FORMATEREN ? (J/N)". If you answer `J`, it 
+    asks `GEEF NAAAM IN`, and I type e.g. `Maarten`.
+    
+  - If, in BASIC, you do a Shift numeric `1` (ZOEK) on this cassette you 
+    get 7 empty (well, 5 bytes) document slots
+  
+    ![7 empty document slots](images/tekstbewerking-formatted.jpg)
+    
+  - If you insert such a formatted cassette in  "Tekstbewerking", status 
+    line 1 changes from `WP 1` to `T:Maarten.1` (with some spaces). 
+    I believe the `1` means that this is the slot where the cassette tape's head is. 
+  
+  - You can now type some text in the document on the screen.
+  
+  - To save the screen content requires some magic steps.
+    - Press shift numeric `7` (tape symbol) to manage the tape.
+      This highlights the slot number in status line 1.
+    - (You need to press shift numeric `,` (STOP) to leave the tape manager)
+    - Press a slot number `1`..`7` to select a slot.
+    - Press shift numeric `6` (OPN) to save the document to the selected slot.
+    - A save wipes the document on the screen.
+    
+  - To load a document from a slot requires similar magic steps.
+    - Press shift numeric `7` (tape symbol) to manage the tape.
+    - Press a slot number `1`..`7` to select a slot.
+    - Press shift numeric `4` (INL) to load from the selected slot and _add_ it 
+      to the document on the screen at the cursor position.
+    - I tried to load from 1 and got `GEEN TEKST OP PAGIN` (no text on page).
+    
+  - My experiment  
+    - I saved text in slot 2.
+    - I wiped the screen document (shift  `-×-`) typed short text, placed the 
+      cursor in the middle, then did the load sequence and indeed the text 
+      previously saved in slot 2 is now inserted on my screen.
+    - I saved this to slot 4, and did a ZOEK in BASIC.
+    
+      ![slots 2 and 4 in use](images/tekstbewerking-slots1-4.jpg)
+  
+- Pressing shift numeric `8` (disk symbol) is a sort of reset - screen document 
+  wiped (!) - tape spins. Do not understand.
+  
+- Pressing shift numeric `9` (M) allows entering a digit 1..9 (also 8 and 9, 
+  so not a tape slot), but all other keys give an error beep. Do not understand.
+  
+  I found is one no-beep exception. After shift numeric `9` (M), then 1, then 
+  shift numeric `6` (OPN), I did not get a beep,
+  I did get a beep when cursor was at end-of-file.
+  Is this a save to clipboard-1?
   
 
 ## Video 
