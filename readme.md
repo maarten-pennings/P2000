@@ -628,7 +628,7 @@ Note, I did followed the tip: if you don't have a 560Ω resistor
 
 ### Result
 
-I'm very happy with the result. Quality is much better; especially deeper colors.
+I'm very happy with the result. Quality is much better; especially deeper colors and less ghosting.
 
 ![Video improvement](images/video-improvement.jpg)
 
