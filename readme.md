@@ -1073,7 +1073,7 @@ These comments refer to the [llist source](grafiek/grafiek.llist.2.log).
     cell is 2×3 pixels.
   - Error trapping is switched on (function might take the square root of a negative number) in line 315.
   - Line 320 starts the plotting by looping `X` of the range. `D` is pixel density, with default `1.1` set in line 2.
-    The `OUT48,39` ensures we see the right part of the screen (memory frame buffer is 80×25, we see now the last 40 columns).
+    The `OUT 48,39` ensures we see the right part of the screen (memory frame buffer is 80×25, we see columns 39 and further, I would expect `OUT 48,40`).
   - Lines 330 and 340 compute the `Y` by substituting `X` in function, and then computing the pixel coordinates `XP` and `YP`.
   - There is another error: when plotting, the top line of the screen shows `-`, `.`, or `+` for each column,
     indicating if the function value is below the screen (`-`), on the screen (`.`) or above the screen (`+`).
