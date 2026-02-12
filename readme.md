@@ -1443,7 +1443,10 @@ Inside tape PCB
 - [Preservation project](https://github.com/p2000t), especially 
   - [Nieuwsbrief Natlab](https://github.com/p2000t/documentation/tree/main/NatLab)
   - [Software](https://github.com/p2000t/software)
+- [Documentation for the Philips P2000C computer](https://www.vintagecomputer.net/fjkraan/comp/p2000c/doc/)
 - [Retroforum](https://www.retroforum.nl/topic/3914-philips-p2000t)
 - [Retrospace](https://retrospace.nl/Philips_P2000T_homecomputer.html)
+- [Web emulator](https://p2000t.github.io/), just pick a game then press F2.
+
 
 (end)
