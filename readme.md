@@ -46,6 +46,10 @@ Scroll down for an extensive [photo gallery](#photo-gallery).
   - [40 year later analysis](#40-year-later-analysis)
   
 - [Photo gallery](#photo-gallery)
+  - [Main unit](#main-unit)
+  - [Details](#details)
+  - [Cartridges](#cartridges)
+  - [Inside](#inside)
 
 - [Todo](#todo)
 
@@ -592,9 +596,18 @@ and it seems helpful for the DIN to SCART link.
 
 I also believe the daughter board is a video mod.
 It seems to replace SAA5020 chip with a pcb that contains the SAA5020 plus some extra stuff.
-I have no idea what this is doing.
 
 ![Video mod3](images/videomod3.jpg)
+
+I have no idea what daugther board is doing.
+Maybe it implements 80-column support.
+I did found out that `OUT 0,1` switches from 40 to 80 column mode, and
+`OUT 0,0` switches back to 40 column mode. If you program in BASIC,
+you might want to tell the BASIC interpreter to use 80 columns: `POKE &h60B0,79`
+and `POKE &h60B0,39`. Note, any number between 0 and 80 will do in either mode,
+but in 40 column mode you will only _see_ 40 columns.
+
+![Video mod3](images/video80columns.jpg)
 
 
 ### DIN-SCART cable
@@ -641,7 +654,8 @@ That problem is gone!
 ## Cartridge
 
 Since I have BASIC UK 1.0, I borrowed the better NL 1.1 and started to 
-investigate. The dream is to make my own cartridge.
+investigate. The dream is to make my own cartridge - it has come true by
+now, see [P2000-cartridge repo](https://github.com/maarten-pennings/P2000-cartridge).
 
 
 ### Memory map
@@ -1322,9 +1336,15 @@ Splash screen BASIC NL 1.1 cartridge
 
 ---------------------------------------
 
-Splash screen tekstbewerking cartridge 
+Opening screen tekstbewerking cartridge 
 
 ![Cartridge Splash screen tekstbewerking](gallery/cart-splash-tekstbewerking.jpg)
+
+---------------------------------------
+
+80 column mode
+
+![80 column mode](images/video80columns.jpg)
 
 
 ### Inside
@@ -1430,13 +1450,6 @@ Inside tape PCB
 ![Inside tape PCB](gallery/inside-tapepcb.jpg)
 
 
-## Possible TODOs
-
-- Try GRAFIEK in a P2000 emulator.
-- Make a cartridge with BASIC NL 1.1.
-- Make GRAFIEK 2.0.
-
-
 ## Links
 
 - [Philips P2000T by Ivo Filot](https://philips-p2000t.nl/) or his [GitHub](https://github.com/ifilot?tab=repositories&q=p2000).
@@ -1447,6 +1460,6 @@ Inside tape PCB
 - [Retroforum](https://www.retroforum.nl/topic/3914-philips-p2000t)
 - [Retrospace](https://retrospace.nl/Philips_P2000T_homecomputer.html)
 - [Web emulator](https://p2000t.github.io/), just pick a game then press F2, or [install](https://github.com/p2000t/M2000)
-
+- [P2000-cartridge repo](https://github.com/maarten-pennings/P2000-cartridge), making my own multi-rom cartridge.
 
 (end)
